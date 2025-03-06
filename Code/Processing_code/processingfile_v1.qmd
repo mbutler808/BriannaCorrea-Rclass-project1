@@ -31,28 +31,30 @@ data_path <- "../../Data/Raw_data"
 
 ```{r}
 penguin_raw <- read.csv(data_location, check.names=FALSE)
-```
-
-
-```{r}
-# path to data
-# note the use of relative and not absolute paths
-
-data_location <- "C:/Users/brnna/classbutler/Homework/BriannaCorrea-Rclass-project1/Data/Raw_data/penguins_raw_dirty.csv
-
-
-### Load data
-```{r}
-penguin_raw <- read.csv(data_location, check.names=FALSE)
-
- #Looks in data location we set, check.names=FALSE prevents R from changing stuff, read.csv() reads my csv files that I connected to data location
 
 ```
-
 
 #Check data
-##Help visualize and check data set
+##Help to visualize and check data set
 
+#Load the Data Dictionary 
+```{r}
+file_path <- file.path(data_path, "datadictionary.csv", sep="") ##double check line here
+dictionary <- read.csv(file_path)
+print(dictionary)
+```
+
+#General Penguin Dataset Overview
+
+```{r}
+dplyr::glimpse(penguin_raw)
+summary(penguin_raw)
+skimr::skim(penguin_raw)
+```
+
+#Structure Checks
+
+```{r}
 head(penguin_raw)
 #Verify first few rows of the data to assure nothing is left out
 
@@ -65,24 +67,24 @@ colnames(penguin_raw)
 str(penguin_raw)
 #Check the structure of the dataset
 
-summary(penguin_raw) 
-#Summarize the data for me
-
-colSums(is.na(penguin_raw))
-# Check how many NAs are in each column of the dataset
-
-skim(penguin_raw)
-#Use to summarize the dataset as is
-
-
-```{r}
-dplyr::glimpse(rawdata)
-summary(rawdata)
-head(rawdata)
-skimr::skim(rawdata)
+colSum(is.na(penguin_raw))
+#Check NAs in each column
 ```
 
-See all the data by just typing `rawdata` at the R console.
+
+# Histogram of penguin_raw data
+
+```{r}
+hist(penguin_raw$"Body Mass (g)", main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
+```
+
+# Bivariate plot for penguin_raw data
+
+```{r}
+plot(penguin_raw$"Body Mass (g)", rawdata$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="orange", pch=2)
+```
+
+#See all the data by just typing `penguin_raw` at the R console.
 
 
 # Cleaning
@@ -90,13 +92,13 @@ See all the data by just typing `rawdata` at the R console.
 ###  Species names
 
 ```{r}
-unique(rawdata$Species)
+unique(penguin_raw$Species)
 ```
 
-Notice that some of the species names have typos? Letʻs save rawdata as d1, and modify d1 so we can compare versions.
+Notice that some of the species names have typos? Letʻs save penguin_raw as d1, and modify d1 so we can compare versions.
 
 ```{r}
-d1 <- rawdata
+d1 <- penguin_raw
 ```
 
 Use the techniques we learned in class to fix these errors. For example, we can find the mispelled entry, and replace the whole thing:
