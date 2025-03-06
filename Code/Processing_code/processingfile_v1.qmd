@@ -7,15 +7,32 @@ output: html_document
 
 # Setup
 
+
+```{r}
+require(dplyr)
+require(tidyr)
+require(skimr)
+
 install.packages(c("dplyr", "tidyr", "skimr"))  #Install the required pacakages
 
+```
+# Data loading
+
+```{r}
 library(dplyr)
 library(tidyr)
 library(skimr) #Load needed packages to clean dirty data and make visual
 
-data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv" #Path to data
 
-data_path <- "../../Data/Raw_data/"
+data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
+
+data_path <- "../../Data/Raw_data"
+```
+
+```{r}
+penguin_raw <- read.csv(data_location, check.names=FALSE)
+```
+
 
 ```{r}
 # path to data
