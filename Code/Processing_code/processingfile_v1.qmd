@@ -1,7 +1,7 @@
 ---
 title: "Brianna Correa: Cleaning Script"
 author: "Brianna Correa"
-date: "2025-03-05dat"
+date: "2025-03-05"
 output: html_document
 ---
 
@@ -9,11 +9,12 @@ output: html_document
 
 
 ```{r}
+
+install.packages(c("dplyr", "tidyr", "skimr"))  #Install the required pacakages
+
 require(dplyr)
 require(tidyr)
 require(skimr)
-
-install.packages(c("dplyr", "tidyr", "skimr"))  #Install the required pacakages
 
 ```
 # Data loading
@@ -39,7 +40,7 @@ penguin_raw <- read.csv(data_location, check.names=FALSE)
 
 #Load the Data Dictionary 
 ```{r}
-file_path <- file.path(data_path, "datadictionary.csv", sep="") ##double check line here
+file_path <- file.path(data_path, "datadictionary.csv") ##double check line here
 dictionary <- read.csv(file_path)
 print(dictionary)
 ```
@@ -67,7 +68,7 @@ colnames(penguin_raw)
 str(penguin_raw)
 #Check the structure of the dataset
 
-colSum(is.na(penguin_raw))
+colSums(is.na(penguin_raw))
 #Check NAs in each column
 ```
 
@@ -75,13 +76,14 @@ colSum(is.na(penguin_raw))
 # Histogram of penguin_raw data
 
 ```{r}
-hist(penguin_raw$"Body Mass (g)", main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
+colnames(penguin_raw) #Double check correct column names
+hist(penguin_raw[["Body Mass (g)"]], main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
 ```
 
 # Bivariate plot for penguin_raw data
 
 ```{r}
-plot(penguin_raw$"Body Mass (g)", rawdata$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="orange", pch=2)
+plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="orange", pch=2)
 ```
 
 #See all the data by just typing `penguin_raw` at the R console.
@@ -142,22 +144,11 @@ unique(d1$Species)
 ```{r}
 d1$Species <- gsub(" penguin", " Penguin", d1$Species)
 unique(d1$Species)
-
-
-
-We can look in the data dictionary for a variable explanation
-I am using the paste function here to add the path to the filename. `sep=""` adds no space when pasting. I could have also just saved the complete path to the file and saved 
-it as `dictonary_path`. It is up to you. 
-
-```{r}
-dictionary <- read.csv(paste(data_path, "datadictionary.csv", sep=""))
-print(dictionary)
 ```
-
 
 ### There are several ways of looking at the data
 
-Note that for functions that come from specific packages (instead of base R) I often specify both package and function like so `package::function()`.  That's not required, one could just call the function after loading the package.  Specifying the package makes it clearer which package the function comes from, but adds a little extra typing. You can do it either way.
+Note that for functions that come from specific packages (instead of base R) I often specify both package and function like so `package::function()`.  Specifying the package makes it clearer which package the function comes from, but adds a little extra typing. 
 
 
 ```{r}
@@ -178,152 +169,134 @@ Personally I would probably shorten everything, but to keep it more recognizable
 
 # Cleaning
 
-Inspecting the data, we find some problems that need addressing. 
-
-###  Species names
-
-First, we know that this is a dataset for three species of penguin, but we notice that there are 9 unique species.
-
 ```{r}
-#check skimr or 
 unique(penguin_raw$Species)
 ```
-
-Notice that some of the species names have typos? Letʻs save penguin_raw as d1, and modify d1 so we can compare versions. 
 
 ```{r}
 d1 <- penguin_raw
 ```
 
-Use the techniques we learned in class to fix these errors. For example, we can find the mispelled entry, and replace the whole thing:
-
 ```{r}
 ii <- grep("PengTin", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
 ```
-
-Another way:
+# repeat for other misspelled species
 
 ```{r}
-d1$Species <- sub("gTin", "guin", d1$Species)
+ii <- grep("Pengufn", d1$Species)
+d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
 unique(d1$Species)   # look at partially fixed data again  
 ```
 
-Fix all of the errors. 
-
-Also, letʻs shorten Species just keeping the three common names "Adelie", "Gentoo", and "Chinstrap" and delete the rest of the Species character string. 
-
-NOTE: Check your work with each change.  Debug as you go, never all at once. Make sure that the code you save in your script works without error. 
-
-
-### Continuous data
-
-There is an entry for `Culmen Length (mm)` which says "missing" instead of a number or NA. 
-Should we delete this record (and all of the variables)?
-This "missing" entry also turned all culmen length entries into characters instead of numeric.
-That conversion to character also means that our summary function isn't very meaningful.
-
-So let's fix that first.
+```{r}
+ii <- grep("PeOguin", d1$Species)
+d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
+unique(d1$Species)
+```
 
 ```{r}
-cl <- d1$`Culmen Length (mm)` # OK so typing `Culmen Length (mm)` is really annoying. 
-                              # Letʻs make a temporary variable `cl` and save it 
-                              # back to d1$`Culmen Length (mm)` when weʻre done. 
+ii <- grep("AdeKie", d1$Species)
+d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
+unique(d1$Species)
+```
 
-cl[ cl == "missing" ] <- NA  # find cl=="missing and replace "missing" with NA
+```{r}
+ii <- grep("AdelieMPenguin", d1$Species)
+d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
+unique(d1$Species)
+```
+
+```{r}
+ii <- grep("Ventoo", d1$Species)
+d1$Species[ii] <- "Gentoo penguin (Pygoscelis papua)"
+unique(d1$Species)
+```
+
+```{r}
+d1$Species <- gsub(" penguin", " Penguin", d1$Species)
+unique(d1$Species)
+```
+
+# Species name shortening
+
+```{r}
+d1$Species <- gsub(" .*", "", d1$Species)
+```
+
+```{r}
+cl <- d1$"Culmen Length (mm)"
+cl[ cl == "missing" ] <- NA  # find cl==missing and replace "missing" with NA
 cl <- as.numeric(cl)  # coerce to numeric
-d1$`Culmen Length (mm)` <- cl
+d1$"Culmen Length (mm)" <- cl
 ```
-
-Another way using `dplyr` from the tidyverse:
-
-```{r eval=F}
-# d1 <- penguin_raw %>% dplyr::filter( `Culmen Length (mm)` != "missing" ) %>% 
-             dplyr::mutate( `Culmen Length (mm)` = as.numeric(`Culmen Length (mm)`))
-```
-
-Look at partially fixed data again
 
 ```{r}
 skimr::skim(d1)
-hist(d1$`Culmen Length (mm)`)
+hist(d1$"Culmen Length (mm)")
 ```
-
-Letʻs also do a bivariate plot with mass
-```{r}
-plot(d1$`Body Mass (g)`, d1$`Culmen Length (mm)`)
-```
-
-Notice anything funny? 
-
-Now we see that there are three penguins with really really long culmens (300+mm) that could be typos. If we don't know, we might need to remove these penguins. But let's suppose that we somehow know that this is because of a misplaced decimal point (for example if we could verify with field records), and letʻs fix this:
 
 ```{r}
-d2 <- d1 
-cl[ cl > 300 ] 
+plot(d1$"Body Mass (g)", d1$"Culmen Length (mm)")
 ```
 
-Notice that NAʻs will match the condition `cl>300`, because we donʻt really know, so R returns it to be conservative. We donʻt want NAs, so letʻs exclude them with 
-!is.na()  where the ! is "not" or the opposite of is.na. 
-The logical & which requires both conditions to be true (i.e., I want to be rich AND famous):
+```{r}
+d2 <- d1
+cl[ cl > 300 ]
+```
+
+# Excluding NA's
 
 ```{r}
 cl[ !is.na(cl) & cl>300 ]
 ```
 
-Now replace with the same divided by 10:
-
 ```{r}
 cl[ !is.na(cl) & cl>300 ] <- cl[ !is.na(cl) & cl>300 ]/10  
-
-d2$`Culmen Length (mm)` <- cl
+d2$"Culmen Length (mm)" <- cl
 ```
-
-Culmen length values seem ok now
 
 ```{r}
 skimr::skim(d2)
-hist(d2$`Culmen Length (mm)`)
-
-plot(d2$`Body Mass (g)`, d2$`Culmen Length (mm)`)
+hist(d2$"Culmen Length (mm)")
+plot(d2$"Body Mass (g)", d2$"Culmen Length (mm)")
 ```
-
-Look better?
-
-### Now let's look at body mass.
-
-There are penguins with body mass of <100g when the others are over 3000. 
-Perhaps these are new chicks? But they are supposed to be adults. Letʻs remove them.
 
 ```{r}
-hist(d2$`Body Mass (g)`)
+hist(d2$"Body Mass (g)")
 ```
 
-Mass is the main size variable, so we will probably need to remove the individuals with missing masses in order to  be able to analyze the data. 
-
-Note: Some analysis methods can deal with missing values, so it's not always necessary. Or it may be fine to have it in some of the variables but probably not the size variable. 
-This should be adjusted based on your planned analysis approach. 
+# Removing "tiny" masses (we only want adult data) and remove any missing data.
 
 ```{r}
 d3 <- d2
-mm <- d3$`Body Mass (g)`
-
-mm[ mm < 100 ] <- NA       # replace tiny masses with NA
-nas <- which( is.na(mm) )  # find which rows have NA for mass
-
-d3 <- d3[ -nas, ]   # drop the penguins (rows) with missing masses
+mm <- d3$"Body Mass (g)"
+mm[ mm < 100 ] <- NA
+nas <- which( is.na(mm) )
+d3 <- d3[ -nas, ]
 
 skimr::skim(d3)
-hist(d3$`Body Mass (g)`)
+hist(d3$"Body Mass (g)")
 
-plot(d3$`Body Mass (g)`, d3$`Culmen Length (mm)`)
+plot(d3$"Body Mass (g)", d3$"Culmen Length (mm)")
 ```
 
-Does it look better?
+# After cleaning, check the data again
 
-### Factors
+```{r}
+hist(d2$"Culmen Length (mm)", main="Histogram of Cleaned Culmen Length (mm)", xlab="Culmen Length (mm)", col="pink", breaks=30)
 
-We also want to have Species, Sex, and Island coded as a categorical/factor variable:
+hist(d3$"Body Mass (g)", main="Histogram of Cleaned Body Mass (g)", xlab="Body Mass (g)", col="purple", breaks=30)
+```
+
+# Summary of cleaned data
+
+```{r}
+summary(d2$"Culmen Length (mm)")
+summary(d2$"Body Mass (g)")
+skimr::skim(d2)
+```
+
 
 ```{r}
 d3$Species <- as.factor(d3$Species)
@@ -332,44 +305,12 @@ d3$Island <- as.factor(d3$Island)
 skimr::skim(d3)
 ```
 
-# Bivariate Plots
-
-Make bivariate plots for any remaining continous data to ensure there are no further errors. It is a good check on the distribution of the data as well. 
-
-Make histograms or densities of at least mass by discrete category, to check for any potential category errors, extra categories, etc.  
-
-You should look through all of the data, variable by variable, or by pairs of variables.
-
-
-# Finalize your cleaned dataset. 
-
-Drop any variables (columns) that you wonʻt analyze.  If you have extra levels after dropping some values, you may want to relevel your factors (this may or may not happen). 
-
-To specify new levels or orders of levels:
-
-```{r eval=F}
-# new_factor <- factor(vec_extra_levels, levels=c("level1", "level2", ... ))
-
-# to drop empty levels:
-# new_factor <- droplevels(vec_extra_levels)
-```
-
 # Save data
 
-All done, data is clean now. 
-Let's assign at the end to some final variable
-makes it easier to add steps above
-
 ```{r}
-processeddata <- d3      # change if you did more steps
+processeddata <- d3
 ```
 
-Finally, we save the clean data as RDS file. I suggest you save your processed and cleaned data as RDS or RDA/Rdata files, as well as a copy as .csv
-
-RDS/Rdata preserves coding like factors, characters, numeric, etc.  If you save as CSV, that information would get lost.
-However, CSV is better for sharing with others since it's plain text. If you do CSV, you might want to write down somewhere what each variable is (i.e. a data dictionary).
-
-Location to save file:
 
 ```{r}
 save_data_location <- "../../Data/Processed_data/processeddata.rds"
@@ -379,20 +320,14 @@ save_data_location_csv <- "../../Data/Processed_data/processeddata.csv"
 write.csv(processeddata, file = save_data_location_csv, row.names=FALSE)
 ```
 
+# Notes
 
-# Notes 
+- Background of Palmer Penguin Data:
 
--  Anything you don't want loaded into the Quarto file but 
-keep in the R file, just give it its own label and then just leave that label out of the Quarto file. For example, you may try excluding some of the excessive comments. 
+The Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment. This data is used for both scientific research on penguin populations and as a teaching tool for data analysis techniques.
 
--  Dealing with NA or "bad" data:
-Removing anyone who had "faulty" or missing data is one approach, but it's often not the best. Based on your question and your analysis approach, you might want to do cleaning differently (e.g. keep individuals with some missing information)
 
 -  Saving data as RDS:
 I suggest you save your processed and cleaned data as RDS or RDA/Rdata files.  This preserves coding like factors, characters, numeric, etc.  If you save as CSV, that information would get lost.
-However, CSV is better for sharing with others since it's plain text. 
+However, CSV is better for sharing with others since it's plain text.
 
--  If you do CSV, you must to write down somewhere what each variable is (i.e. in a data dictionary).
-
--  See here for some suggestions on how to store your processed data:
-<http://www.sthda.com/english/wiki/saving-data-into-r-data-format-rds-and-rdata>
