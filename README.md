@@ -8,6 +8,7 @@ A template file and folder structure for a data analysis project/paper done with
 # Projects
 
 1. For the first project, we are focusing on data cleaning, so we only have Data and Code folders.
+This is an exciting step we will have complete on 3/3/2025. This is the initial work that will be done with our penguin data set. 
 2. For the second project, we are analyzing the cleaned data, so have Data, Code, Results, and Products folders
 3. For the third project, please analyze your own data with data cleaning, analysis, and report preparation. 
 
@@ -17,7 +18,7 @@ A template file and folder structure for a data analysis project/paper done with
 
 # Acknowledgement
 
- This template was cloned and modified from <https://github.com/andreashandel/dataanalysis-template>
+This is Brianna Correa's class project repository, based on a template cloned and modified from <https://github.com/andreashandel/dataanalysis-template>
 
 # Software requirements
 

@@ -68,8 +68,10 @@ colnames(penguin_raw)
 str(penguin_raw)
 #Check the structure of the dataset
 
+
 colSums(is.na(penguin_raw))
 #Check NAs in each column
+
 ```
 
 
@@ -83,7 +85,7 @@ hist(penguin_raw[["Body Mass (g)"]], main="Histogram of Body Mass (g)", xlab="Bo
 # Bivariate plot for penguin_raw data
 
 ```{r}
-plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="orange", pch=2)
+plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="red", pch=2)
 ```
 
 #See all the data by just typing `penguin_raw` at the R console.
