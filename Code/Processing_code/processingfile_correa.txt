@@ -1,130 +1,58 @@
 ---
 title: "Brianna Correa: Cleaning Script"
 author: "Brianna Correa"
-date: "2025-03-05dat"
+date: "2023-03-03"
 output: html_document
 ---
 
+
+# Processing script (data cleaning)
+
+This Quarto document contains the same code and comments/information as `processingcode.R`. However, this demonstrates how to embed the code and text into a single Quarto file. 
+
+Some people, after they get comfortable with coding in R and writing markdown, prefer to skip the script step and develop their code directly in a markdown file. This is practical for smaller projects or projects that are very similar to previous projects. 
+
+Others prefer to have an R script and draw from the code into the markdown document (see v2).  When youʻre deep in coding, it can be easier to work with the code without all the text in between. See the other Quarto file (v2) for my currently preferred approach of pulling code from the R script into the Quarto file via code chunk labels.
+
+
 # Setup
 
-install.packages(c("dplyr", "tidyr", "skimr"))  #Install the required pacakages
+Load needed packages. make sure they are installed.
 
-library(dplyr)
-library(tidyr)
-library(skimr) #Load needed packages to clean dirty data and make visual
+```{r}
+require(dplyr) #for data processing/cleaning
+require(tidyr) #for data processing/cleaning
+require(skimr) #for nice visualization of data 
+```
 
-data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv" #Path to data
 
-data_path <- "../../Data/Raw_data/"
+# Data loading
+
+Start R in the same directory that this script resides in `project_root/Code/Processing_code`.  If you need to check your working directory, use `getwd()`.
+
+Either restart R in the correct directory, or navigate to it 
+with `setwd(...relative path to the correct directory...)`. 
+
+**NEVER** put a `setwd()` inside your code, it is bad ettiquite as it probably wonʻt work for anyone else. 
 
 ```{r}
 # path to data
 # note the use of relative and not absolute paths
 
-data_location <- "C:/Users/brnna/classbutler/Homework/BriannaCorrea-Rclass-project1/Data/Raw_data/penguins_raw_dirty.csv
-
+data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
+data_path <- "../../Data/Raw_data/"
+```
 
 ### Load data
+
+I am using `check.names=F` because these names have spaces and parentheses and I want to preserve the original names.
+
 ```{r}
-penguin_raw <- read.csv(data_location, check.names=FALSE)
-
- #Looks in data location we set, check.names=FALSE prevents R from changing stuff, read.csv() reads my csv files that I connected to data location
-
+rawdata <- read.csv(data_location, check.names=FALSE)
 ```
 
 
-#Check data
-##Help visualize and check data set
-
-head(penguin_raw)
-#Verify first few rows of the data to assure nothing is left out
-
-tail(penguin_raw)
-#Verify last few rows of the data to assure nothing is left out
-
-colnames(penguin_raw)
-#Check the column names
-
-str(penguin_raw)
-#Check the structure of the dataset
-
-summary(penguin_raw) 
-#Summarize the data for me
-
-colSums(is.na(penguin_raw))
-# Check how many NAs are in each column of the dataset
-
-skim(penguin_raw)
-#Use to summarize the dataset as is
-
-
-```{r}
-dplyr::glimpse(rawdata)
-summary(rawdata)
-head(rawdata)
-skimr::skim(rawdata)
-```
-
-See all the data by just typing `rawdata` at the R console.
-
-
-# Cleaning
-
-###  Species names
-
-```{r}
-unique(rawdata$Species)
-```
-
-Notice that some of the species names have typos? Letʻs save rawdata as d1, and modify d1 so we can compare versions.
-
-```{r}
-d1 <- rawdata
-```
-
-Use the techniques we learned in class to fix these errors. For example, we can find the mispelled entry, and replace the whole thing:
-
-```{r}
-ii <- grep("PengTin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-```
-# repeat for other misspelled species
-
-```{r}
-ii <- grep("Pengufn", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)   # look at partially fixed data again  
-```
-
-```{r}
-ii <- grep("PeOguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("AdeKie", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("AdelieMPenguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("Ventoo", d1$Species)
-d1$Species[ii] <- "Gentoo penguin (Pygoscelis papua)"
-unique(d1$Species)
-```
-
-```{r}
-d1$Species <- gsub(" penguin", " Penguin", d1$Species)
-unique(d1$Species)
-
-
+# Check data
 
 We can look in the data dictionary for a variable explanation
 I am using the paste function here to add the path to the filename. `sep=""` adds no space when pasting. I could have also just saved the complete path to the file and saved 
@@ -142,19 +70,19 @@ Note that for functions that come from specific packages (instead of base R) I o
 
 
 ```{r}
-dplyr::glimpse(penguin_raw)
-summary(penguin_raw)
-head(penguin_raw)
-skimr::skim(penguin_raw)
+dplyr::glimpse(rawdata)
+summary(rawdata)
+head(rawdata)
+skimr::skim(rawdata)
 ```
 
-See all the data by just typing `penguin_raw` at the R console.
+See all the data by just typing `rawdata` at the R console.
 
-Note that the names in the penguin dataset have spaces and () which are usable, but force us to quote the character strings. You can either keep doing so penguin_raw$`Culmen Length (mm)` or rename to something more convenient.
+Note that the names in the penguin dataset have spaces and () which are usable, but force us to quote the character strings. You can either keep doing so rawdata$`Culmen Length (mm)` or rename to something more convenient.
 Personally I would probably shorten everything, but to keep it more recognizable for this exercise, I will leave it. Itʻs up to you. 
 
 ```{r eval=F}
-# names(penguin_raw) <- c("study", "sampleN", "species", "region", "island", "stage", "id", ... )
+# names(rawdata) <- c("study", "sampleN", "species", "region", "island", "stage", "id", ... )
 ```
 
 # Cleaning
@@ -167,13 +95,13 @@ First, we know that this is a dataset for three species of penguin, but we notic
 
 ```{r}
 #check skimr or 
-unique(penguin_raw$Species)
+unique(rawdata$Species)
 ```
 
-Notice that some of the species names have typos? Letʻs save penguin_raw as d1, and modify d1 so we can compare versions. 
+Notice that some of the species names have typos? Letʻs save rawdata as d1, and modify d1 so we can compare versions. 
 
 ```{r}
-d1 <- penguin_raw
+d1 <- rawdata
 ```
 
 Use the techniques we learned in class to fix these errors. For example, we can find the mispelled entry, and replace the whole thing:
@@ -219,7 +147,7 @@ d1$`Culmen Length (mm)` <- cl
 Another way using `dplyr` from the tidyverse:
 
 ```{r eval=F}
-# d1 <- penguin_raw %>% dplyr::filter( `Culmen Length (mm)` != "missing" ) %>% 
+# d1 <- rawdata %>% dplyr::filter( `Culmen Length (mm)` != "missing" ) %>% 
              dplyr::mutate( `Culmen Length (mm)` = as.numeric(`Culmen Length (mm)`))
 ```
 
