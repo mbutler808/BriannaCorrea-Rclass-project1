@@ -6,321 +6,131 @@ output: html_document
 ---
 
 # Setup
-
-
-```{r}
-
-install.packages(c("dplyr", "tidyr", "skimr"))  #Install the required pacakages
-
 require(dplyr)
 require(tidyr)
 require(skimr)
 
-```
 # Data loading
-
-```{r}
-library(dplyr)
-library(tidyr)
-library(skimr) #Load needed packages to clean dirty data and make visual
-
+setwd("../../Project-template/Data/Raw_data")
 
 data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
-
 data_path <- "../../Data/Raw_data"
-```
 
-```{r}
+# Read the data
 penguin_raw <- read.csv(data_location, check.names=FALSE)
 
-```
-
-#Check data
-##Help to visualize and check data set
-
-#Load the Data Dictionary 
-```{r}
-file_path <- file.path(data_path, "datadictionary.csv") ##double check line here
+# Check data
+file_path <- file.path(data_path, "datadictionary.csv", sep="")
 dictionary <- read.csv(file_path)
 print(dictionary)
-```
 
-#General Penguin Dataset Overview
-
-```{r}
-dplyr::glimpse(penguin_raw)
-summary(penguin_raw)
-skimr::skim(penguin_raw)
-```
-
-#Structure Checks
-
-```{r}
-head(penguin_raw)
-#Verify first few rows of the data to assure nothing is left out
-
-tail(penguin_raw)
-#Verify last few rows of the data to assure nothing is left out
-
-colnames(penguin_raw)
-#Check the column names
-
-str(penguin_raw)
-#Check the structure of the dataset
-
-
-colSums(is.na(penguin_raw))
-#Check NAs in each column
-
-```
-
-
-# Histogram of penguin_raw data
-
-```{r}
-colnames(penguin_raw) #Double check correct column names
-hist(penguin_raw[["Body Mass (g)"]], main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
-```
-
-# Bivariate plot for penguin_raw data
-
-```{r}
-plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="red", pch=2)
-```
-
-#See all the data by just typing `penguin_raw` at the R console.
-
-
-# Cleaning
-
-###  Species names
-
-```{r}
-unique(penguin_raw$Species)
-```
-
-Notice that some of the species names have typos? Letʻs save penguin_raw as d1, and modify d1 so we can compare versions.
-
-```{r}
-d1 <- penguin_raw
-```
-
-Use the techniques we learned in class to fix these errors. For example, we can find the mispelled entry, and replace the whole thing:
-
-```{r}
-ii <- grep("PengTin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-```
-# repeat for other misspelled species
-
-```{r}
-ii <- grep("Pengufn", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)   # look at partially fixed data again  
-```
-
-```{r}
-ii <- grep("PeOguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("AdeKie", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("AdelieMPenguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-```
-
-```{r}
-ii <- grep("Ventoo", d1$Species)
-d1$Species[ii] <- "Gentoo penguin (Pygoscelis papua)"
-unique(d1$Species)
-```
-
-```{r}
-d1$Species <- gsub(" penguin", " Penguin", d1$Species)
-unique(d1$Species)
-```
-
-### There are several ways of looking at the data
-
-Note that for functions that come from specific packages (instead of base R) I often specify both package and function like so `package::function()`.  Specifying the package makes it clearer which package the function comes from, but adds a little extra typing. 
-
-
-```{r}
 dplyr::glimpse(penguin_raw)
 summary(penguin_raw)
 head(penguin_raw)
 skimr::skim(penguin_raw)
-```
 
-See all the data by just typing `penguin_raw` at the R console.
+# Histogram of raw data
+hist(penguin_raw$"Body Mass (g)", main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
 
-Note that the names in the penguin dataset have spaces and () which are usable, but force us to quote the character strings. You can either keep doing so penguin_raw$`Culmen Length (mm)` or rename to something more convenient.
-Personally I would probably shorten everything, but to keep it more recognizable for this exercise, I will leave it. Itʻs up to you. 
-
-```{r eval=F}
-# names(penguin_raw) <- c("study", "sampleN", "species", "region", "island", "stage", "id", ... )
-```
+# Bivariate plot for raw data
+plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="green", pch=20)
 
 # Cleaning
-
-```{r}
 unique(penguin_raw$Species)
-```
 
-```{r}
 d1 <- penguin_raw
-```
 
-```{r}
 ii <- grep("PengTin", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-```
-# repeat for other misspelled species
 
-```{r}
+# repeat for other misspelled species
 ii <- grep("Pengufn", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)   # look at partially fixed data again  
-```
+unique(d1$Species)
 
-```{r}
 ii <- grep("PeOguin", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
 unique(d1$Species)
-```
 
-```{r}
 ii <- grep("AdeKie", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
 unique(d1$Species)
-```
 
-```{r}
 ii <- grep("AdelieMPenguin", d1$Species)
 d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
 unique(d1$Species)
-```
 
-```{r}
 ii <- grep("Ventoo", d1$Species)
 d1$Species[ii] <- "Gentoo penguin (Pygoscelis papua)"
 unique(d1$Species)
-```
 
-```{r}
 d1$Species <- gsub(" penguin", " Penguin", d1$Species)
 unique(d1$Species)
-```
 
 # Species name shortening
-
-```{r}
 d1$Species <- gsub(" .*", "", d1$Species)
-```
 
-```{r}
 cl <- d1$"Culmen Length (mm)"
-cl[ cl == "missing" ] <- NA  # find cl==missing and replace "missing" with NA
+cl[cl == "missing"] <- NA  # find cl==missing and replace "missing" with NA
 cl <- as.numeric(cl)  # coerce to numeric
 d1$"Culmen Length (mm)" <- cl
-```
 
-```{r}
 skimr::skim(d1)
 hist(d1$"Culmen Length (mm)")
-```
 
-```{r}
 plot(d1$"Body Mass (g)", d1$"Culmen Length (mm)")
-```
 
-```{r}
 d2 <- d1
-cl[ cl > 300 ]
-```
+cl[cl > 300]
 
 # Excluding NA's
+cl[!is.na(cl) & cl > 300]
 
-```{r}
-cl[ !is.na(cl) & cl>300 ]
-```
-
-```{r}
-cl[ !is.na(cl) & cl>300 ] <- cl[ !is.na(cl) & cl>300 ]/10  
+cl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10  
 d2$"Culmen Length (mm)" <- cl
-```
 
-```{r}
 skimr::skim(d2)
 hist(d2$"Culmen Length (mm)")
 plot(d2$"Body Mass (g)", d2$"Culmen Length (mm)")
-```
 
-```{r}
 hist(d2$"Body Mass (g)")
-```
 
 # Removing "tiny" masses (we only want adult data) and remove any missing data.
-
-```{r}
 d3 <- d2
 mm <- d3$"Body Mass (g)"
-mm[ mm < 100 ] <- NA
-nas <- which( is.na(mm) )
-d3 <- d3[ -nas, ]
+mm[mm < 100] <- NA
+nas <- which(is.na(mm))
+d3 <- d3[-nas, ]
 
 skimr::skim(d3)
 hist(d3$"Body Mass (g)")
 
 plot(d3$"Body Mass (g)", d3$"Culmen Length (mm)")
-```
 
 # After cleaning, check the data again
-
-```{r}
 hist(d2$"Culmen Length (mm)", main="Histogram of Cleaned Culmen Length (mm)", xlab="Culmen Length (mm)", col="pink", breaks=30)
 
 hist(d3$"Body Mass (g)", main="Histogram of Cleaned Body Mass (g)", xlab="Body Mass (g)", col="purple", breaks=30)
-```
 
 # Summary of cleaned data
-
-```{r}
 summary(d2$"Culmen Length (mm)")
 summary(d2$"Body Mass (g)")
 skimr::skim(d2)
-```
 
-
-```{r}
 d3$Species <- as.factor(d3$Species)
 d3$Sex <- as.factor(d3$Sex)
 d3$Island <- as.factor(d3$Island)  
 skimr::skim(d3)
-```
 
 # Save data
-
-```{r}
 processeddata <- d3
-```
 
-
-```{r}
 save_data_location <- "../../Data/Processed_data/processeddata.rds"
 saveRDS(processeddata, file = save_data_location)
 
 save_data_location_csv <- "../../Data/Processed_data/processeddata.csv"
 write.csv(processeddata, file = save_data_location_csv, row.names=FALSE)
-```
+
 
 # Notes
 
