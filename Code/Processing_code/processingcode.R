@@ -104,23 +104,86 @@ d1_clean <- d1[!is.na(d1$"Culmen Length (mm)") & !is.na(d1$"Body Mass (g)"), ]
 length(d1_clean$"Culmen Length (mm)")
 length(d1_clean$"Body Mass (g)")
 
-# Plot after cleaning
-plot(d1_clean$"Body Mass (g)", d1_clean$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="green", pch=20)
+# Remove rows where either Culmen Length or Body Mass is NA
+d1_clean <- d1[!is.na(d1$"Culmen Length (mm)") & !is.na(d1$"Body Mass (g)"), ]
 
 # Further clean the Culmen Length for outliers
 cl <- d1_clean$"Culmen Length (mm)"
 
-# Exclude values where Culmen Length is greater than 300
-cl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10  # Scale those values down
+# Identify values greater than 300 and check them
+outliers <- cl > 300
 
+cat("Outliers greater than 300:", sum(outliers), "\n")
+
+# Modify the Culmen Length for outliers, dividing by 10
+cl[outliers] <- cl[outliers] / 10  # Scale those values down
+
+# Update the cleaned dataframe
 d1_clean$"Culmen Length (mm)" <- cl
+
+# Skim the cleaned data
+skimr::skim(d1_clean)
+
+# Plot histogram after cleaning
+hist(d1_clean$"Culmen Length (mm)", main="Histogram of Culmen Length (mm)", col="lightblue", breaks=30)
+
+# Plot Body Mass vs. Culmen Length after final cleaning
+plot(d1_clean$"Body Mass (g)", d1_clean$"Culmen Length (mm)", 
+     main="Body Mass vs. Culmen Length", 
+     xlab="Body Mass (g)", 
+     ylab="Culmen Length (mm)", 
+     col="green", pch=20)
+
+
+# Plot after cleaning
+plot(d1_clean[["Body Mass (g)"]], 
+     d1_clean[["Culmen Length (mm)"]], 
+     main="Body Mass vs. Culmen Length", 
+     xlab="Body Mass (g)", 
+     ylab="Culmen Length (mm)", 
+     col="green",        # Color for points
+     pch=20,             # Type of points (solid circle)
+     cex=2)              # Increase size of points for better visibility
+
+# Further clean the Culmen Length for outliers
+cl <- d1_clean$"Culmen Length (mm)"
+
+
+
+
+
+# Identify values greater than 300 and check them
+
+outliers <- cl > 300
+
+
+
+
+cat("Outliers greater than 300:", sum(outliers), "\n")
+
+# Modify the Culmen Length for outliers, dividing by 10
+cl[outliers] <- cl[outliers] / 10  # Scale those values down
+
+# Update the cleaned dataframe
+d1_clean$"Culmen Length (mm)" <- cl
+
+# Skim the cleaned data
+skimr::skim(d1_clean)
+
+# Plot histogram after cleaning
+hist(d1_clean$"Culmen Length (mm)", main="Histogram of Culmen Length (mm)", col="lightblue", breaks=30)
 
 # Skim the cleaned data
 skimr::skim(d1_clean)
 hist(d1_clean$"Culmen Length (mm)")
 
 # Plot Body Mass vs. Culmen Length after final cleaning
-plot(d1_clean$"Body Mass (g)", d1_clean$"Culmen Length (mm)")
+plot(d1_clean$"Body Mass (g)", d1_clean$"Culmen Length (mm)", 
+     main="Body Mass vs. Culmen Length", 
+     xlab="Body Mass (g)", 
+     ylab="Culmen Length (mm)", 
+     col="green", pch=20)
+
 
 # Clean Body Mass (g) by removing small values (adult data)
 mm <- d1_clean$"Body Mass (g)"
