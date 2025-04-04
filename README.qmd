@@ -28,20 +28,17 @@ For more R packages supporting reproducible research check out the taskview <htt
 
 # Template structure
 
-*Data can be found in the Data folder and any subfolders
-*All code created will be found in the Code folder and any relevant subfolders
-*Further modifications can be expected in the future. 
+*
 
 # Template content
 
-* You will want to look at the README.md file in Code and Data at this time. 
-*These areas will be able to give you more information regarding the Palmer Penguins morphology and life history data we are utilizing. 
-*The Processing_code folder has the original raw data as well as the cleaned data. 
-*More will come with updates related to Project 2
+*
 
 # Getting started
 
-*As stated above this project is in processing. Therefore as of 4/1/2025 please look only in Code and Data for any relevant changes. 
+This is a Github template repository. The best way to get it and start using it is [by following these steps.](https://help.github.com/en/articles/creating-a-repository-from-a-template)
 
+Once you got the repository, you can check out the examples by executing them in order. 
 
+1.  For this section of the project we will be working in Code and Data mostly. The other files are not necessary at this time. 
 
