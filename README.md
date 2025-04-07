@@ -11,51 +11,40 @@ The Palmer Penguin Project is a dataset used for ecological and statistical anal
 
 # History
 
-2023-02-16 First release with Data and Code folders with materials for data cleaning and initial exploration.
-2025-03-01 Cloned from M. Butler repo for R Class Spring 2025
-2025-03-20 Original Submission by Brianna Correa with Data Cleaning Edits
-2025-04-01 Currently under renovation for data cleaning
+- **2023-02-16**: First release with Data and Code folders with materials for data cleaning and initial exploration.
+- **2025-03-01**: Cloned from M. Butler repo for R Class Spring 2025.
+- **2025-03-20**: Original Submission by Brianna Correa with Data Cleaning Edits.
+- **2025-04-01**: Currently under renovation for data cleaning.
 
-Content that has been updated includes the following for Project 1 Phase:
-
-Code now runs without issues producing figures that are required for the project. 
-
-Data is now processed and cleaned, bivariate plots are accounted for as well as the required histograms to demonstrate the new cleaned data.
-
-Corrections made to the GitHub are now congruent with local files, README file has been updated to reflect project. 
-
-Outliers are properly dealt with and documented.
-
-
-Packages are not recommended to be downloaded and not done so forcibly. 
-
+### Updates:
+- Code now runs without issues, producing figures required for the project.
+- Data has been processed and cleaned; bivariate plots and required histograms have been created to demonstrate the cleaned data.
+- Corrections have been made to GitHub to match local files. The README file has been updated to reflect the project.
+- Outliers are properly handled and documented.
+- Packages are not recommended for download unless necessary.
 
 # Acknowledgement
 
-This is Brianna Correa's class project repository, based on a template cloned and modified from <https://github.com/andreashandel/dataanalysis-template>
+This is Brianna Correa's class project repository, based on a template cloned and modified from [https://github.com/andreashandel/dataanalysis-template](https://github.com/andreashandel/dataanalysis-template).
 
-# Software requirements
+# Software Requirements
 
-This template lays out a data analysis project and report writing using R, Quarto, Github and a reference manager for bibtex. A plain text editor is also necessary, and wordprocessing software to open .docx if you wish to use that format (e.g. MS Word, MacOS Pages, or [LibreOffice](https://www.libreoffice.org/)). 
+This template lays out a data analysis project and report writing using R, Quarto, GitHub, and a reference manager for BibTeX. A plain text editor is also necessary, and word-processing software to open `.docx` files if you wish to use that format (e.g., MS Word, MacOS Pages, or [LibreOffice](https://www.libreoffice.org/)).
 
-For more R packages supporting reproducible research check out the taskview <https://cran.r-project.org/web/views/ReproducibleResearch.html>
+For more R packages supporting reproducible research, check out the task view: [Reproducible Research on CRAN](https://cran.r-project.org/web/views/ReproducibleResearch.html).
 
-# Template structure
+# Template Structure
 
-*Data can be found in the Data folder and any subfolders
-*All code created will be found in the Code folder and any relevant subfolders
-*Further modifications can be expected in the future. 
+- **Data Folder**: Contains the dataset and any subfolders.
+- **Code Folder**: Contains all code created, including relevant subfolders.
+- Further modifications can be expected in the future.
 
-# Template content
+# Template Content
 
-* You will want to look at the README.md file in Code and Data at this time. 
-*These areas will be able to give you more information regarding the Palmer Penguins morphology and life history data we are utilizing. 
-*The Processing_code folder has the original raw data as well as the cleaned data. 
-*More will come with updates related to Project 2
+- You will want to review the README.md files in the **Code** and **Data** folders for more details regarding the Palmer Penguins morphology and life history data we are utilizing.
+- The **Processing_code** folder has the original raw data as well as the cleaned data.
+- More updates related to **Project 2** will follow in the future.
 
-# Getting started
+# Getting Started
 
-*As stated above this project is in processing. Therefore as of 4/1/2025 please look only in Code and Data for any relevant changes. 
-
-
-
+As noted earlier, this project is currently in progress. As of **April 1, 2025**, please refer only to the **Code** and **Data** folders for any relevant changes. As of **April 6, 2025**, all files are active, and we are in the later phase of the project analysis, which will help answer questions utilizing our cleaned data and facilitate a valuable discussion surrounding the findings.
