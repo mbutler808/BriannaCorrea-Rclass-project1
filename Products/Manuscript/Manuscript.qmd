@@ -40,7 +40,11 @@ Our research questions are:
 
 2. Does sex predict body mass when controlling for species?
 
-3. Do foraging patterns differ by species or sex? 
+3. Is there a relationship between body mass and flipper length?
+
+4. Do foraging patterns differ by species or sex? 
+
+I'm interested in question four but need to look into how I would structure this type of question before I go ahead and try. I'd like to be able to produce this for my conclusion in project 3. 
 
 
 
