@@ -1,9 +1,23 @@
 ---
-title: "Brianna's Analysis Script"
+title: "Brianna's Exploratory Analysis Script"
 author: "Brianna Correa"
-date: "03/03/2025"
+date: "04/06/2025"
 output: html_document
 --- 
+
+## Introduction
+
+In this report, we answer three research questions related to the Palmer Penguin dataset. The dataset includes measurements of penguins from the Palmer Station, Antarctica, focusing on body mass, flipper length, sex, and species.
+
+### Research Questions:
+1. Does sex predict body mass when controlling for species?
+2. Is there a relationship between body mass and flipper length?
+3. Is there a relationship between body mass and flipper length?
+
+Hopefully by the end of project 3, I can also ask another question: 
+
+4. Do foraging patterns differ by species or sex?
+
 
 # Documented workflow
 
@@ -18,6 +32,21 @@ I have kept the raw data but am working with the clean data, so that we can trac
 ## Setup
 
 This needs to run to load the R script so we can include the code chunks below.
+
+```{r}
+# Load necessary libraries
+library(here)
+library(ggplot2)
+library(dplyr)
+library(car)
+
+# Load data
+data_path <- here("Data", "Processed_data", "processeddata.rds")
+dat <- readRDS(data_path)
+
+# Preview the dataset
+head(dat)
+
 
 ```{r }
 #| cache = FALSE
@@ -40,6 +69,30 @@ Load the data.
 
 ```{r loaddata}
 ```
+
+## Using the here() Function:
+
+In this project, I ended up having to learn how to use the here() function to make file paths more portable and ensure that my analysis could be easily reproduced across different environments. Prior to using here(), I struggled with setting absolute file paths that worked consistently across different machines. The here() function, allows the construction of file paths that are relative to the root directory of your project, avoiding hard-coded paths that could break when moving or sharing the project via a repo.
+
+
+The here() function only works by starting from the root directory of your project, which is especially useful when organizing files in subdirectories (aka in the Data, Code, Results folders).
+
+Instead of specifying the full path like C:/Users/yourname/..., I can use here("Data", "Processed_data", "processeddata.rds") to refer to files in the project. This approach makes the paths more flexible and the code more portable, ensuring the analysis will run on any machine as long as the project structure remains the same.
+
+Notes:
+
+It's important to note that here() needs to be used consistently throughout the project to maintain relative paths, and the directory structure must be clearly defined to avoid errors.
+
+While here() simplifies path management, I had to make sure the project directory was set up correctly from the start. The function expects the project root to be well-defined, so I had to check I put my root in the right place as per CRAN instructions. 
+
+# Example of using the here() function
+
+```{r }
+data_path <- here("Data", "Processed_data", "processeddata.rds")
+dat <- readRDS(data_path)
+```
+
+
 
 
 
