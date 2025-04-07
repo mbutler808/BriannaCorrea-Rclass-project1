@@ -15,6 +15,10 @@ The Palmer Penguin Project is a dataset used for ecological and statistical anal
 - **2025-03-01**: Cloned from M. Butler repo for R Class Spring 2025.
 - **2025-03-20**: Original Submission by Brianna Correa with Data Cleaning Edits.
 - **2025-04-01**: Currently under renovation for data cleaning.
+- **2025-04-02**: Finished data cleaning, Project 2 underway.
+- **2025-04-04**: Issues with laptop key stick, Project 2 questions formulated, .qmd edits made, script testing
+- **2025-04-05**: Finalizing script, changing questions
+- **2025-04-06**: Fixed script, approved readme.md and .qmds, Project 2 complete, script run without error after "source()" check. 
 
 ### Updates:
 - Code now runs without issues, producing figures required for the project.
