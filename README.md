@@ -22,7 +22,7 @@ Code now runs without issues producing figures that are required for the project
 
 Data is now processed and cleaned, bivariate plots are accounted for as well as the required histograms to demonstrate the new cleaned data.
 
-Corrections made to the GitHub are not congruent with local files, README file has been updated to reflect project. 
+Corrections made to the GitHub are now congruent with local files, README file has been updated to reflect project. 
 
 Outliers are properly dealt with and documented.
 

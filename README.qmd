@@ -16,6 +16,20 @@ The Palmer Penguin Project is a dataset used for ecological and statistical anal
 2025-03-20 Original Submission by Brianna Correa with Data Cleaning Edits
 2025-04-01 Currently under renovation for data cleaning
 
+Content that has been updated includes the following for Project 1 Phase:
+
+Code now runs without issues producing figures that are required for the project. 
+
+Data is now processed and cleaned, bivariate plots are accounted for as well as the required histograms to demonstrate the new cleaned data.
+
+Corrections made to the GitHub are not congruent with local files, README file has been updated to reflect project. 
+
+Outliers are properly dealt with and documented.
+
+
+Packages are not recommended to be downloaded and not done so forcibly. 
+
+
 # Acknowledgement
 
 This is Brianna Correa's class project repository, based on a template cloned and modified from <https://github.com/andreashandel/dataanalysis-template>
@@ -28,17 +42,20 @@ For more R packages supporting reproducible research check out the taskview <htt
 
 # Template structure
 
-*
+*Data can be found in the Data folder and any subfolders
+*All code created will be found in the Code folder and any relevant subfolders
+*Further modifications can be expected in the future. 
 
 # Template content
 
-*
+* You will want to look at the README.md file in Code and Data at this time. 
+*These areas will be able to give you more information regarding the Palmer Penguins morphology and life history data we are utilizing. 
+*The Processing_code folder has the original raw data as well as the cleaned data. 
+*More will come with updates related to Project 2
 
 # Getting started
 
-This is a Github template repository. The best way to get it and start using it is [by following these steps.](https://help.github.com/en/articles/creating-a-repository-from-a-template)
+*As stated above this project is in processing. Therefore as of 4/1/2025 please look only in Code and Data for any relevant changes. As of 4/6/2025 files avaliable are all active. We are currently in the later phase of the project analysis wherein we will be able to answer questions utilizing our cleaned data and create a valuable discussion surrounding findings. 
 
-Once you got the repository, you can check out the examples by executing them in order. 
 
-1.  For this section of the project we will be working in Code and Data mostly. The other files are not necessary at this time. 
 
