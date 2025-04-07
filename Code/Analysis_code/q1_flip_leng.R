@@ -11,10 +11,14 @@ library(dplyr)    # For data manipulation
 # Load the data
 # Use already cleaned data
 
-data_path <- "Processed_data/"
-dat <- readRDS(paste0(data_path, "processeddata.rds"))
+data_path <- here("Data", "Processed_data", "processeddata.rds")
+
+# Load the data
+
+dat <- readRDS(data_path)
 
 # View the first few rows of the data to understand its structure
+
 head(dat)
 
 # Create a boxplot to visualize the flipper length by species
@@ -26,7 +30,7 @@ ggplot(dat, aes(x = Species, y = `Flipper Length (mm)`, fill = Species)) +
   theme_minimal()
 
 # Save the plot to a file
-ggsave(filename = "../../Results/flipper_length_species_boxplot.png")
+ggsave(filename = here("Results", "flipper_length_species_boxplot.png"))
 
 # Perform ANOVA to test if flipper length differs by species
 lm_fit <- lm(`Flipper Length (mm)` ~ Species, data = dat)
@@ -36,18 +40,18 @@ anova_result <- anova(lm_fit)
 print(anova_result)
 
 # Save the ANOVA result to a file
-saveRDS(anova_result, file = "../../Results/flipper_length_species_anova.rds")
+saveRDS(anova_result, file = here("Results", "flipper_length_species_anova.rds"))
 
 # Optionally, check assumptions of ANOVA (normality and homogeneity of variance)
 # Checking normality: Plot histogram of residuals
 residuals <- lm_fit$residuals
 ggplot(data.frame(residuals), aes(x = residuals)) +
-  geom_histogram(binwidth = 2, fill = "blue", color = "black", alpha = 0.7) +
+  geom_histogram(binwidth = 2, fill = "pink", color = "black", alpha = 0.7) +
   labs(title = "Residuals Histogram", x = "Residuals", y = "Frequency") +
   theme_minimal()
 
 # Save residuals histogram to a file
-ggsave(filename = "../../Results/residuals_histogram.png")
+ggsave(filename = here("Results", "residuals_histogram.png"))
 
 # Checking homogeneity of variance: Use Levene's Test (if needed)
 library(car)
