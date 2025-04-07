@@ -16,6 +16,20 @@ The Palmer Penguin Project is a dataset used for ecological and statistical anal
 2025-03-20 Original Submission by Brianna Correa with Data Cleaning Edits
 2025-04-01 Currently under renovation for data cleaning
 
+Content that has been updated includes the following for Project 1 Phase:
+
+Code now runs without issues producing figures that are required for the project. 
+
+Data is now processed and cleaned, bivariate plots are accounted for as well as the required histograms to demonstrate the new cleaned data.
+
+Corrections made to the GitHub are not congruent with local files, README file has been updated to reflect project. 
+
+Outliers are properly dealt with and documented.
+
+
+Packages are not recommended to be downloaded and not done so forcibly. 
+
+
 # Acknowledgement
 
 This is Brianna Correa's class project repository, based on a template cloned and modified from <https://github.com/andreashandel/dataanalysis-template>

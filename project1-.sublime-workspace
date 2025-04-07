@@ -17,37 +17,13 @@
 			}
 		},
 		{
-			"contents": "Package Control Messages\n========================\n\nPackage Control\n---------------\n\n  Version 4.0.0 Release Notes\n  ===========================\n\n\n  Major Changes\n  -------------\n\n  - Requires at least ST3143 (1.0)\n\n  - drops support for python 2.x\n\n  - adds support for python 3.8\n\n  - Package and library version scheme changed from SemVer to PEP440\n    for better pre-release handling and compatibility with python packages.\n\n    Note: Package versions should still follow SemVer like `<major>.<minor>.<micro>`\n\n  - Dependencies are now called libraries.\n\n    They are installed to Data/Libs as ordinary python packages.\n\n    Existing managed dependencies are automatically converted.\n\n    Can install python wheels (*.whl)\n\n  - Channel/repository scheme v1.0 and v1.2 are no longer supported\n    as they contain only packages for no longer supported ST2.\n\n  - New channel/repository scheme v4.0.0 is introduced,\n    which allows to specify supported `python_versions`.\n\n    Parsing and installing \"requirements.txt\" is however not yet supported.\n\n    For working examples checkout example-channel.json and example-repository.json\n    from Package Control Github repository.\n\n\n  Note for Package Devs\n  ---------------------\n\n    packagecontrol.io does not yet support the new 4.0.0 scheme\n    and thus doesn't ship python 3.8 dependencies/libraries.\n\n    Therefore do not upgrade repositories to 4.0.0 scheme,\n    which are included in default channel.\n\n    You can however create your own 4.0.0 repository and\n    add it via 'Package Control: Add Repository'.\n\n    Metadata for python 3.8 compatible libraries are maintained at\n\n      https://github.com/packagecontrol/channel\n\n    and shipped via\n\n      https://packagecontrol.github.io/channel/channel_v4.json\n\n    so all packages can already migrate to python 3.8\n\n\n  New features include:\n  ---------------------\n\n    - support for python 3.8 dependencies (now called libraries)\n    - add openssl 3.0 support via asn1crypto 1.5.1 and oscrypto 1.3.0\n    - prune backups older than 14 days (#145)\n    - provide all relevant operations via ApplicationCommands (#1071)\n      + Advanced Disable Packages (disable_packages)\n      + Advanced Enable Packages (enable_packages)\n      + Advanced Install Packages (install_packages)\n      + Advanced Upgrade Packages (upgrade_packages)\n      + Advanced Remove Packages (remove_packages)\n    - allow relative paths in channel.json and repository.json (#1329)\n    - hide (auto-generated?) packages via `.hidden-sublime-package` file (#1429)\n    - support for cooperate_packages (#1406, #1633)\n    - IntelliSense support for for channel.json/repository.json via jsonschemas\n    - support for asset based Github/Gitlab releases (#1484)\n\n\n  Bug fixes include:\n  ------------------\n\n    - abort package operation if backup fails (#1000)\n    - fix long path support on Windows (#1020)\n    - fix missing packages not being installed if an overriding unpacked package exists (#1155)\n    - fix errors being displayed for git/hg tracked packages without remote (#1167)\n    - fix not all git/hg tracked packages being upgraded\n    - fix packages in auto_upgrade_ignore setting being renamed without upgrade (#1370)\n    - fix corruption of installed_packages or ignored_packages settings\n    - fix backup/restore of ST's \"auto\" color schemes and themes\n    - fix manual package upgrades converting unmanaged packages to managed ones (#1272)\n    - fix libraries not being upgraded by auto upgrader\n    - fix prompt for ST restart before all operations are completed\n    - fix SSL_CERT_FILE environment variable being ignored\n    - fix repositories of channels without cache not being downloaded (#1354, #1601)\n    - fix QuickPanelItem parse errors in URLs (#1580)\n    - fix unavailable libraries being reported as successfully installed (#1605)\n    - fix error message flooding\n    - keep ingored_packages clean by removing non-existing packages\n\n    ...\n\n    The full list of addressed bugs can be found at:\n\n      https://github.com/wbond/package_control/milestone/1",
-			"settings":
-			{
-				"buffer_size": 4051,
-				"line_ending": "Windows",
-				"name": "Package Control Messages",
-				"read_only": true,
-				"scratch": true
-			},
-			"undo_stack":
-			[
-				[
-					1,
-					1,
-					"insert",
-					{
-						"characters": "Package Control Messages\n========================\n\nPackage Control\n---------------\n\n  Version 4.0.0 Release Notes\n  ===========================\n\n\n  Major Changes\n  -------------\n\n  - Requires at least ST3143 (1.0)\n\n  - drops support for python 2.x\n\n  - adds support for python 3.8\n\n  - Package and library version scheme changed from SemVer to PEP440\n    for better pre-release handling and compatibility with python packages.\n\n    Note: Package versions should still follow SemVer like `<major>.<minor>.<micro>`\n\n  - Dependencies are now called libraries.\n\n    They are installed to Data/Libs as ordinary python packages.\n\n    Existing managed dependencies are automatically converted.\n\n    Can install python wheels (*.whl)\n\n  - Channel/repository scheme v1.0 and v1.2 are no longer supported\n    as they contain only packages for no longer supported ST2.\n\n  - New channel/repository scheme v4.0.0 is introduced,\n    which allows to specify supported `python_versions`.\n\n    Parsing and installing \"requirements.txt\" is however not yet supported.\n\n    For working examples checkout example-channel.json and example-repository.json\n    from Package Control Github repository.\n\n\n  Note for Package Devs\n  ---------------------\n\n    packagecontrol.io does not yet support the new 4.0.0 scheme\n    and thus doesn't ship python 3.8 dependencies/libraries.\n\n    Therefore do not upgrade repositories to 4.0.0 scheme,\n    which are included in default channel.\n\n    You can however create your own 4.0.0 repository and\n    add it via 'Package Control: Add Repository'.\n\n    Metadata for python 3.8 compatible libraries are maintained at\n\n      https://github.com/packagecontrol/channel\n\n    and shipped via\n\n      https://packagecontrol.github.io/channel/channel_v4.json\n\n    so all packages can already migrate to python 3.8\n\n\n  New features include:\n  ---------------------\n\n    - support for python 3.8 dependencies (now called libraries)\n    - add openssl 3.0 support via asn1crypto 1.5.1 and oscrypto 1.3.0\n    - prune backups older than 14 days (#145)\n    - provide all relevant operations via ApplicationCommands (#1071)\n      + Advanced Disable Packages (disable_packages)\n      + Advanced Enable Packages (enable_packages)\n      + Advanced Install Packages (install_packages)\n      + Advanced Upgrade Packages (upgrade_packages)\n      + Advanced Remove Packages (remove_packages)\n    - allow relative paths in channel.json and repository.json (#1329)\n    - hide (auto-generated?) packages via `.hidden-sublime-package` file (#1429)\n    - support for cooperate_packages (#1406, #1633)\n    - IntelliSense support for for channel.json/repository.json via jsonschemas\n    - support for asset based Github/Gitlab releases (#1484)\n\n\n  Bug fixes include:\n  ------------------\n\n    - abort package operation if backup fails (#1000)\n    - fix long path support on Windows (#1020)\n    - fix missing packages not being installed if an overriding unpacked package exists (#1155)\n    - fix errors being displayed for git/hg tracked packages without remote (#1167)\n    - fix not all git/hg tracked packages being upgraded\n    - fix packages in auto_upgrade_ignore setting being renamed without upgrade (#1370)\n    - fix corruption of installed_packages or ignored_packages settings\n    - fix backup/restore of ST's \"auto\" color schemes and themes\n    - fix manual package upgrades converting unmanaged packages to managed ones (#1272)\n    - fix libraries not being upgraded by auto upgrader\n    - fix prompt for ST restart before all operations are completed\n    - fix SSL_CERT_FILE environment variable being ignored\n    - fix repositories of channels without cache not being downloaded (#1354, #1601)\n    - fix QuickPanelItem parse errors in URLs (#1580)\n    - fix unavailable libraries being reported as successfully installed (#1605)\n    - fix error message flooding\n    - keep ingored_packages clean by removing non-existing packages\n\n    ...\n\n    The full list of addressed bugs can be found at:\n\n      https://github.com/wbond/package_control/milestone/1"
-					},
-					"uwAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAAAAAAAAAZAAAAAAAAAAAAAAAZAAAAAAAAADEAAAAAAAAAAAAAADEAAAAAAAAAMgAAAAAAAAAAAAAAMgAAAAAAAAAzAAAAAAAAAAAAAAAzAAAAAAAAAEIAAAAAAAAAAAAAAEIAAAAAAAAAQwAAAAAAAAAAAAAAQwAAAAAAAABSAAAAAAAAAAAAAABSAAAAAAAAAFMAAAAAAAAAAAAAAFMAAAAAAAAAVAAAAAAAAAAAAAAAVAAAAAAAAABxAAAAAAAAAAAAAABxAAAAAAAAAHIAAAAAAAAAAAAAAHIAAAAAAAAAjwAAAAAAAAAAAAAAjwAAAAAAAACQAAAAAAAAAAAAAACQAAAAAAAAAJEAAAAAAAAAAAAAAJEAAAAAAAAAkgAAAAAAAAAAAAAAkgAAAAAAAAChAAAAAAAAAAAAAAChAAAAAAAAAKIAAAAAAAAAAAAAAKIAAAAAAAAAsQAAAAAAAAAAAAAAsQAAAAAAAACyAAAAAAAAAAAAAACyAAAAAAAAALMAAAAAAAAAAAAAALMAAAAAAAAA1QAAAAAAAAAAAAAA1QAAAAAAAADWAAAAAAAAAAAAAADWAAAAAAAAANcAAAAAAAAAAAAAANcAAAAAAAAA9wAAAAAAAAAAAAAA9wAAAAAAAAD4AAAAAAAAAAAAAAD4AAAAAAAAAPkAAAAAAAAAAAAAAPkAAAAAAAAAGAEAAAAAAAAAAAAAGAEAAAAAAAAZAQAAAAAAAAAAAAAZAQAAAAAAABoBAAAAAAAAAAAAABoBAAAAAAAAXgEAAAAAAAAAAAAAXgEAAAAAAABfAQAAAAAAAAAAAABfAQAAAAAAAKoBAAAAAAAAAAAAAKoBAAAAAAAAqwEAAAAAAAAAAAAAqwEAAAAAAACsAQAAAAAAAAAAAACsAQAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAQIAAAAAAAAAAAAAAQIAAAAAAAACAgAAAAAAAAAAAAACAgAAAAAAACwCAAAAAAAAAAAAACwCAAAAAAAALQIAAAAAAAAAAAAALQIAAAAAAAAuAgAAAAAAAAAAAAAuAgAAAAAAAG4CAAAAAAAAAAAAAG4CAAAAAAAAbwIAAAAAAAAAAAAAbwIAAAAAAABwAgAAAAAAAAAAAABwAgAAAAAAAK4CAAAAAAAAAAAAAK4CAAAAAAAArwIAAAAAAAAAAAAArwIAAAAAAACwAgAAAAAAAAAAAACwAgAAAAAAANUCAAAAAAAAAAAAANUCAAAAAAAA1gIAAAAAAAAAAAAA1gIAAAAAAADXAgAAAAAAAAAAAADXAgAAAAAAABoDAAAAAAAAAAAAABoDAAAAAAAAGwMAAAAAAAAAAAAAGwMAAAAAAABZAwAAAAAAAAAAAABZAwAAAAAAAFoDAAAAAAAAAAAAAFoDAAAAAAAAWwMAAAAAAAAAAAAAWwMAAAAAAACSAwAAAAAAAAAAAACSAwAAAAAAAJMDAAAAAAAAAAAAAJMDAAAAAAAAywMAAAAAAAAAAAAAywMAAAAAAADMAwAAAAAAAAAAAADMAwAAAAAAAM0DAAAAAAAAAAAAAM0DAAAAAAAAGAQAAAAAAAAAAAAAGAQAAAAAAAAZBAAAAAAAAAAAAAAZBAAAAAAAABoEAAAAAAAAAAAAABoEAAAAAAAAbAQAAAAAAAAAAAAAbAQAAAAAAABtBAAAAAAAAAAAAABtBAAAAAAAAJgEAAAAAAAAAAAAAJgEAAAAAAAAmQQAAAAAAAAAAAAAmQQAAAAAAACaBAAAAAAAAAAAAACaBAAAAAAAAJsEAAAAAAAAAAAAAJsEAAAAAAAAsgQAAAAAAAAAAAAAsgQAAAAAAACzBAAAAAAAAAAAAACzBAAAAAAAAMoEAAAAAAAAAAAAAMoEAAAAAAAAywQAAAAAAAAAAAAAywQAAAAAAADMBAAAAAAAAAAAAADMBAAAAAAAAAsFAAAAAAAAAAAAAAsFAAAAAAAADAUAAAAAAAAAAAAADAUAAAAAAABIBQAAAAAAAAAAAABIBQAAAAAAAEkFAAAAAAAAAAAAAEkFAAAAAAAASgUAAAAAAAAAAAAASgUAAAAAAACEBQAAAAAAAAAAAACEBQAAAAAAAIUFAAAAAAAAAAAAAIUFAAAAAAAArwUAAAAAAAAAAAAArwUAAAAAAACwBQAAAAAAAAAAAACwBQAAAAAAALEFAAAAAAAAAAAAALEFAAAAAAAA6QUAAAAAAAAAAAAA6QUAAAAAAADqBQAAAAAAAAAAAADqBQAAAAAAABsGAAAAAAAAAAAAABsGAAAAAAAAHAYAAAAAAAAAAAAAHAYAAAAAAAAdBgAAAAAAAAAAAAAdBgAAAAAAAF8GAAAAAAAAAAAAAF8GAAAAAAAAYAYAAAAAAAAAAAAAYAYAAAAAAABhBgAAAAAAAAAAAABhBgAAAAAAAJAGAAAAAAAAAAAAAJAGAAAAAAAAkQYAAAAAAAAAAAAAkQYAAAAAAACSBgAAAAAAAAAAAACSBgAAAAAAAKUGAAAAAAAAAAAAAKUGAAAAAAAApgYAAAAAAAAAAAAApgYAAAAAAACnBgAAAAAAAAAAAACnBgAAAAAAAOUGAAAAAAAAAAAAAOUGAAAAAAAA5gYAAAAAAAAAAAAA5gYAAAAAAADnBgAAAAAAAAAAAADnBgAAAAAAABwHAAAAAAAAAAAAABwHAAAAAAAAHQcAAAAAAAAAAAAAHQcAAAAAAAAeBwAAAAAAAAAAAAAeBwAAAAAAAB8HAAAAAAAAAAAAAB8HAAAAAAAANgcAAAAAAAAAAAAANgcAAAAAAAA3BwAAAAAAAAAAAAA3BwAAAAAAAE4HAAAAAAAAAAAAAE4HAAAAAAAATwcAAAAAAAAAAAAATwcAAAAAAABQBwAAAAAAAAAAAABQBwAAAAAAAJAHAAAAAAAAAAAAAJAHAAAAAAAAkQcAAAAAAAAAAAAAkQcAAAAAAADWBwAAAAAAAAAAAADWBwAAAAAAANcHAAAAAAAAAAAAANcHAAAAAAAABAgAAAAAAAAAAAAABAgAAAAAAAAFCAAAAAAAAAAAAAAFCAAAAAAAAEoIAAAAAAAAAAAAAEoIAAAAAAAASwgAAAAAAAAAAAAASwgAAAAAAAB/CAAAAAAAAAAAAAB/CAAAAAAAAIAIAAAAAAAAAAAAAIAIAAAAAAAAsggAAAAAAAAAAAAAsggAAAAAAACzCAAAAAAAAAAAAACzCAAAAAAAAOcIAAAAAAAAAAAAAOcIAAAAAAAA6AgAAAAAAAAAAAAA6AgAAAAAAAAcCQAAAAAAAAAAAAAcCQAAAAAAAB0JAAAAAAAAAAAAAB0JAAAAAAAATwkAAAAAAAAAAAAATwkAAAAAAABQCQAAAAAAAAAAAABQCQAAAAAAAJYJAAAAAAAAAAAAAJYJAAAAAAAAlwkAAAAAAAAAAAAAlwkAAAAAAADnCQAAAAAAAAAAAADnCQAAAAAAAOgJAAAAAAAAAAAAAOgJAAAAAAAAGwoAAAAAAAAAAAAAGwoAAAAAAAAcCgAAAAAAAAAAAAAcCgAAAAAAAGsKAAAAAAAAAAAAAGsKAAAAAAAAbAoAAAAAAAAAAAAAbAoAAAAAAACoCgAAAAAAAAAAAACoCgAAAAAAAKkKAAAAAAAAAAAAAKkKAAAAAAAAqgoAAAAAAAAAAAAAqgoAAAAAAACrCgAAAAAAAAAAAACrCgAAAAAAAL8KAAAAAAAAAAAAAL8KAAAAAAAAwAoAAAAAAAAAAAAAwAoAAAAAAADUCgAAAAAAAAAAAADUCgAAAAAAANUKAAAAAAAAAAAAANUKAAAAAAAA1goAAAAAAAAAAAAA1goAAAAAAAALCwAAAAAAAAAAAAALCwAAAAAAAAwLAAAAAAAAAAAAAAwLAAAAAAAAOgsAAAAAAAAAAAAAOgsAAAAAAAA7CwAAAAAAAAAAAAA7CwAAAAAAAJoLAAAAAAAAAAAAAJoLAAAAAAAAmwsAAAAAAAAAAAAAmwsAAAAAAADuCwAAAAAAAAAAAADuCwAAAAAAAO8LAAAAAAAAAAAAAO8LAAAAAAAAJwwAAAAAAAAAAAAAJwwAAAAAAAAoDAAAAAAAAAAAAAAoDAAAAAAAAH8MAAAAAAAAAAAAAH8MAAAAAAAAgAwAAAAAAAAAAAAAgAwAAAAAAADHDAAAAAAAAAAAAADHDAAAAAAAAMgMAAAAAAAAAAAAAMgMAAAAAAAACA0AAAAAAAAAAAAACA0AAAAAAAAJDQAAAAAAAAAAAAAJDQAAAAAAAGANAAAAAAAAAAAAAGANAAAAAAAAYQ0AAAAAAAAAAAAAYQ0AAAAAAACYDQAAAAAAAAAAAACYDQAAAAAAAJkNAAAAAAAAAAAAAJkNAAAAAAAA3A0AAAAAAAAAAAAA3A0AAAAAAADdDQAAAAAAAAAAAADdDQAAAAAAABcOAAAAAAAAAAAAABcOAAAAAAAAGA4AAAAAAAAAAAAAGA4AAAAAAABsDgAAAAAAAAAAAABsDgAAAAAAAG0OAAAAAAAAAAAAAG0OAAAAAAAAog4AAAAAAAAAAAAAog4AAAAAAACjDgAAAAAAAAAAAACjDgAAAAAAAPMOAAAAAAAAAAAAAPMOAAAAAAAA9A4AAAAAAAAAAAAA9A4AAAAAAAAUDwAAAAAAAAAAAAAUDwAAAAAAABUPAAAAAAAAAAAAABUPAAAAAAAAWA8AAAAAAAAAAAAAWA8AAAAAAABZDwAAAAAAAAAAAABZDwAAAAAAAFoPAAAAAAAAAAAAAFoPAAAAAAAAYQ8AAAAAAAAAAAAAYQ8AAAAAAABiDwAAAAAAAAAAAABiDwAAAAAAAGMPAAAAAAAAAAAAAGMPAAAAAAAAlw8AAAAAAAAAAAAAlw8AAAAAAACYDwAAAAAAAAAAAACYDwAAAAAAAJkPAAAAAAAAAAAAAJkPAAAAAAAA0w8AAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
-				]
-			]
-		},
-		{
-			"contents": "---\ntitle: \"Brianna Correa: Cleaning Script\"\nauthor: \"Brianna Correa\"\ndate: \"2025-03-05\"\noutput: html_document\n---\n\n# Setup require(dplyr) require(tidyr) require(skimr)\n\n# Data loading\nsetwd(\"../../Project-template/Data/Raw_data\")\n\ndata_location <- \"../../Data/Raw_data/penguins_raw_dirty.csv\"\ndata_path <- \"../../Data/Raw_data\"\n\n# Read the data\npenguin_raw <- read.csv(data_location, check.names=FALSE)\n\n# Check data\nfile_path <- file.path(data_path, \"datadictionary.csv\", sep=\"\")\ndictionary <- read.csv(file_path)\nprint(dictionary)\n\ndplyr::glimpse(penguin_raw)\nsummary(penguin_raw)\nhead(penguin_raw)\nskimr::skim(penguin_raw)\n\n# Histogram of raw data\nhist(penguin_raw$\"Body Mass (g)\", main=\"Histogram of Body Mass (g)\", xlab=\"Body Mass (g)\", col=\"orange\", breaks=30)\n\n# Bivariate plot for raw data\nplot(penguin_raw$\"Body Mass (g)\", penguin_raw$\"Culmen Length (mm)\", main=\"Body Mass vs. Culmen Length\", xlab=\"Body Mass (g)\", ylab=\"Culmen Length (mm)\", col=\"green\", pch=20)\n\n# Cleaning\nunique(penguin_raw$Species)\n\nd1 <- penguin_raw\n\nii <- grep(\"PengTin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\n\n# repeat for other misspelled species\nii <- grep(\"Pengufn\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"PeOguin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"AdeKie\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"AdelieMPenguin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"Ventoo\", d1$Species)\nd1$Species[ii] <- \"Gentoo penguin (Pygoscelis papua)\"\nunique(d1$Species)\n\nd1$Species <- gsub(\" penguin\", \" Penguin\", d1$Species)\nunique(d1$Species)\n\n# Species name shortening\nd1$Species <- gsub(\" .*\", \"\", d1$Species)\n\ncl <- d1$\"Culmen Length (mm)\"\ncl[cl == \"missing\"] <- NA  # find cl==missing and replace \"missing\" with NA\ncl <- as.numeric(cl)  # coerce to numeric\nd1$\"Culmen Length (mm)\" <- cl\n\nskimr::skim(d1)\nhist(d1$\"Culmen Length (mm)\")\n\nplot(d1$\"Body Mass (g)\", d1$\"Culmen Length (mm)\")\n\nd2 <- d1\ncl[cl > 300]\n\n# Excluding NA's\ncl[!is.na(cl) & cl > 300]\n\ncl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10  \nd2$\"Culmen Length (mm)\" <- cl\n\nskimr::skim(d2)\nhist(d2$\"Culmen Length (mm)\")\nplot(d2$\"Body Mass (g)\", d2$\"Culmen Length (mm)\")\n\nhist(d2$\"Body Mass (g)\")\n\n# Removing \"tiny\" masses (we only want adult data) and remove any missing data.\nd3 <- d2\nmm <- d3$\"Body Mass (g)\"\nmm[mm < 100] <- NA\nnas <- which(is.na(mm))\nd3 <- d3[-nas, ]\n\nskimr::skim(d3)\nhist(d3$\"Body Mass (g)\")\n\nplot(d3$\"Body Mass (g)\", d3$\"Culmen Length (mm)\")\n\n# After cleaning, check the data again\nhist(d2$\"Culmen Length (mm)\", main=\"Histogram of Cleaned Culmen Length (mm)\", xlab=\"Culmen Length (mm)\", col=\"pink\", breaks=30)\n\nhist(d3$\"Body Mass (g)\", main=\"Histogram of Cleaned Body Mass (g)\", xlab=\"Body Mass (g)\", col=\"purple\", breaks=30)\n\n# Summary of cleaned data\nsummary(d2$\"Culmen Length (mm)\")\nsummary(d2$\"Body Mass (g)\")\nskimr::skim(d2)\n\nd3$Species <- as.factor(d3$Species)\nd3$Sex <- as.factor(d3$Sex)\nd3$Island <- as.factor(d3$Island)  \nskimr::skim(d3)\n\n# Save data\nprocesseddata <- d3\n\nsave_data_location <- \"../../Data/Processed_data/processeddata.rds\"\nsaveRDS(processeddata, file = save_data_location)\n\nsave_data_location_csv <- \"../../Data/Processed_data/processeddata.csv\"\nwrite.csv(processeddata, file = save_data_location_csv, row.names=FALSE)\n\n\n# Notes\n\n- Background of Palmer Penguin Data:\n\nThe Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment. This data is used for both scientific research on penguin populations and as a teaching tool for data analysis techniques.\n\n\n-  Saving data as RDS:\nI suggest you save your processed and cleaned data as RDS or RDA/Rdata files.  This preserves coding like factors, characters, numeric, etc.  If you save as CSV, that information would get lost.\nHowever, CSV is better for sharing with others since it's plain text.\n\n",
+			"contents": "---\ntitle: \"Brianna Correa: Cleaning Script\"\nauthor: \"Brianna Correa\"\ndate: \"2025-03-05\"\noutput: html_document\n---\n\n# Setup require(dplyr) require(tidyr) require(skimr)\n\n# Data loading\nsetwd(\"../../Project-template/Data/Raw_data\")\n\ndata_location <- \"../../Data/Raw_data/penguins_raw_dirty.csv\"\ndata_path <- \"../../Data/Raw_data\"\n\n# Read the data\npenguin_raw <- read.csv(data_location, check.names=FALSE)\n\n# Check data\nfile_path <- file.path(data_path, \"datadictionary.csv\", sep=\"\")\ndictionary <- read.csv(file_path)\nprint(dictionary)\n\ndplyr::glimpse(penguin_raw)\nsummary(penguin_raw)\nhead(penguin_raw)\nskimr::skim(penguin_raw)\n\n# Histogram of raw data\nhist(penguin_raw$\"Body Mass (g)\", main=\"Histogram of Body Mass (g)\", xlab=\"Body Mass (g)\", col=\"orange\", breaks=30)\n\n# Bivariate plot for raw data\nplot(penguin_raw$\"Body Mass (g)\", penguin_raw$\"Culmen Length (mm)\", main=\"Body Mass vs. Culmen Length\", xlab=\"Body Mass (g)\", ylab=\"Culmen Length (mm)\", col=\"green\", pch=20)\n\n# Cleaning\nunique(penguin_raw$Species)\n\nd1 <- penguin_raw\n\nii <- grep(\"PengTin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\n\n# repeat for other misspelled species\nii <- grep(\"Pengufn\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"PeOguin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"AdeKie\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"AdelieMPenguin\", d1$Species)\nd1$Species[ii] <- \"Adelie Penguin (Pygoscelis adeliae)\"\nunique(d1$Species)\n\nii <- grep(\"Ventoo\", d1$Species)\nd1$Species[ii] <- \"Gentoo penguin (Pygoscelis papua)\"\nunique(d1$Species)\n\nd1$Species <- gsub(\" penguin\", \" Penguin\", d1$Species)\nunique(d1$Species)\n\n# Species name shortening\nd1$Species <- gsub(\" .*\", \"\", d1$Species)\ncl <- d1$\"Culmen Length (mm)\"\ncl[cl == \"missing\"] <- NA  # find cl==missing and replace \"missing\" with NA\ncl <- as.numeric(cl)  # coerce to numeric\nd1$\"Culmen Length (mm)\" <- cl\nskimr::skim(d1)\nhist(d1$\"Culmen Length (mm)\")\nplot(d1$\"Body Mass (g)\", d1$\"Culmen Length (mm)\")\nd2 <- d1\ncl[cl > 300]\n# Excluding NA's\ncl[!is.na(cl) & cl > 300]\n\ncl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10  \nd2$\"Culmen Length (mm)\" <- cl\n\nskimr::skim(d2)\nhist(d2$\"Culmen Length (mm)\")\nplot(d2$\"Body Mass (g)\", d2$\"Culmen Length (mm)\")\n\nhist(d2$\"Body Mass (g)\")\n\n# Removing \"tiny\" masses (we only want adult data) and remove any missing data.\nd3 <- d2\nmm <- d3$\"Body Mass (g)\"\nmm[mm < 100] <- NA\nnas <- which(is.na(mm))\nd3 <- d3[-nas, ]\n\nskimr::skim(d3)\nhist(d3$\"Body Mass (g)\")\n\nplot(d3$\"Body Mass (g)\", d3$\"Culmen Length (mm)\")\n\n# After cleaning, check the data again\nhist(d2$\"Culmen Length (mm)\", main=\"Histogram of Cleaned Culmen Length (mm)\", xlab=\"Culmen Length (mm)\", col=\"pink\", breaks=30)\n\nhist(d3$\"Body Mass (g)\", main=\"Histogram of Cleaned Body Mass (g)\", xlab=\"Body Mass (g)\", col=\"purple\", breaks=30)\n\n# Summary of cleaned data\nsummary(d2$\"Culmen Length (mm)\")\nsummary(d2$\"Body Mass (g)\")\nskimr::skim(d2)\n\nd3$Species <- as.factor(d3$Species)\nd3$Sex <- as.factor(d3$Sex)\nd3$Island <- as.factor(d3$Island)  \nskimr::skim(d3)\n\n# Save data\nprocesseddata <- d3\n\nsave_data_location <- \"../../Data/Processed_data/processeddata.rds\"\nsaveRDS(processeddata, file = save_data_location)\n\nsave_data_location_csv <- \"../../Data/Processed_data/processeddata.csv\"\nwrite.csv(processeddata, file = save_data_location_csv, row.names=FALSE)\n\n\n# Notes\n\n- Background of Palmer Penguin Data:\n\nThe Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment. This data is used for both scientific research on penguin populations and as a teaching tool for data analysis techniques.\n\n\n-  Saving data as RDS:\nI suggest you save your processed and cleaned data as RDS or RDA/Rdata files.  This preserves coding like factors, characters, numeric, etc.  If you save as CSV, that information would get lost.\nHowever, CSV is better for sharing with others since it's plain text.\n\n",
 			"file": "Code/Processing_code/processingfile_v1.qmd",
 			"file_size": 4289,
 			"file_write_time": 133857234493284309,
 			"settings":
 			{
-				"buffer_size": 4143,
+				"buffer_size": 4138,
 				"line_ending": "Windows"
 			},
 			"undo_stack":
@@ -58,7 +34,47 @@
 					"wrap_lines",
 					null,
 					"AwAAAHsAAAAAAAAAfAAAAAAAAAABAAAACooAAAAAAAAAiwAAAAAAAAABAAAACpkAAAAAAAAAmgAAAAAAAAABAAAACg",
-					"AgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAACoAAAAAAAAAKgAAAAAAAAAAAAAAAAA8L8"
+					"AwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAKgAAAAAAAAAqAAAAAAAAAAAAAAAAADwvw"
+				],
+				[
+					3,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEEHAAAAAAAAQQcAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAQgcAAAAAAABCBwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"left_delete",
+					null,
+					"AQAAAPMHAAAAAAAA8wcAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAA9AcAAAAAAAD0BwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"left_delete",
+					null,
+					"AQAAACEIAAAAAAAAIQgAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAIggAAAAAAAAiCAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					12,
+					1,
+					"left_delete",
+					null,
+					"AQAAAFMIAAAAAAAAUwgAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAVAgAAAAAAABUCAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					19,
+					1,
+					"left_delete",
+					null,
+					"AQAAAGkIAAAAAAAAaQgAAAAAAAABAAAACg",
+					"AQAAAAAAAAABAAAAaggAAAAAAABqCAAAAAAAAAAAAAAAAAAA"
 				]
 			]
 		}
@@ -157,6 +173,7 @@
 				{
 					"buffer": 0,
 					"file": "Code/Processing_code/processingcode.R",
+					"selected": true,
 					"semi_transient": true,
 					"settings":
 					{
@@ -181,38 +198,6 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"stack_multiselect": false,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"selected": true,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4051,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4051,
-								4051
-							]
-						],
-						"settings":
-						{
-							"auto_indent": false,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_width": 2,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 0,
 					"stack_multiselect": false,
 					"type": "text"
@@ -223,21 +208,21 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "Code/Processing_code/processingfile_v1.qmd",
 					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4143,
+						"buffer_size": 4138,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								168,
-								168
+								2153,
+								2153
 							]
 						],
 						"settings":
@@ -331,7 +316,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
