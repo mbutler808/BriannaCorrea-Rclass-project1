@@ -1,15 +1,16 @@
----
+
+--- 
 title: "Brianna's Exploratory Analysis Script"
 author: "Brianna Correa"
 date: "04/06/2025"
-output: html_document
+format: html
 --- 
 
 ## Introduction
 
 In this report, we answer three research questions related to the Palmer Penguin dataset. The dataset includes measurements of penguins from the Palmer Station, Antarctica, focusing on body mass, flipper length, sex, and species.
 
-### Research Questions:
+## Research Questions:
 1. Does sex predict body mass when controlling for species?
 2. Is there a relationship between body mass and flipper length?
 3. Is there a relationship between body mass and flipper length?
@@ -19,7 +20,7 @@ Hopefully by the end of project 3, I can also ask another question:
 4. Do foraging patterns differ by species or sex?
 
 
-# Documented workflow
+## Documented workflow
 
 In this project it made more sense to separate cleaning our datasets and exploring them in an analysis file later. This was due to real errors we had to fix and accomdate for that would have prevented us from analyzing it to begin with. In an effort to carefully document this, notes have been left in several readmes related to these files as well as pretty specific notes within the script that explains what each command does.
 
@@ -31,7 +32,7 @@ I have kept the raw data but am working with the clean data, so that we can trac
 
 ## Setup
 
-This needs to run to load the R script so we can include the code chunks below.
+### This chunk loads the necessary libraries and your data:
 
 ```{r}
 # Load necessary libraries
@@ -47,50 +48,132 @@ dat <- readRDS(data_path)
 # Preview the dataset
 head(dat)
 
+# Using the here() Function
+# In this project, I ended up having to learn how to use the here() function to make file paths more portable and ensure that my analysis could be easily reproduced across different environments.
 
-```{r }
-#| cache = FALSE
-knitr::read_chunk('statistical_analysis.R')
-```
+# Prior to using here(), I struggled with setting absolute file paths that worked consistently across different machines. The here() function allows the construction of file paths that are relative to the root directory of your project, avoiding hard-coded paths that could break when moving or sharing the project via a repo.
 
-Load needed packages and filepaths.  
+# The here() function works by starting from the root directory of your project, which is especially useful when organizing files in subdirectories (e.g., in the Data, Code, Results folders). Instead of specifying the full path like C:/Users/yourname/..., I can use:
 
-```{r setup}
-#| message: FALSE
-#| warning: FALSE
-```
-
-Load custom functions.
-
-```{r functions}
-```
-
-Load the data.
-
-```{r loaddata}
-```
-
-## Using the here() Function:
-
-In this project, I ended up having to learn how to use the here() function to make file paths more portable and ensure that my analysis could be easily reproduced across different environments. Prior to using here(), I struggled with setting absolute file paths that worked consistently across different machines. The here() function, allows the construction of file paths that are relative to the root directory of your project, avoiding hard-coded paths that could break when moving or sharing the project via a repo.
-
-
-The here() function only works by starting from the root directory of your project, which is especially useful when organizing files in subdirectories (aka in the Data, Code, Results folders).
-
-Instead of specifying the full path like C:/Users/yourname/..., I can use here("Data", "Processed_data", "processeddata.rds") to refer to files in the project. This approach makes the paths more flexible and the code more portable, ensuring the analysis will run on any machine as long as the project structure remains the same.
-
-Notes:
-
-It's important to note that here() needs to be used consistently throughout the project to maintain relative paths, and the directory structure must be clearly defined to avoid errors.
-
-While here() simplifies path management, I had to make sure the project directory was set up correctly from the start. The function expects the project root to be well-defined, so I had to check I put my root in the right place as per CRAN instructions. 
-
-# Example of using the here() function
-
-```{r }
 data_path <- here("Data", "Processed_data", "processeddata.rds")
 dat <- readRDS(data_path)
+
+
+```{r}
+
+# Penguin Analysis Script: Question 1
+
+# Create a boxplot to visualize flipper length by species
+ggplot(dat, aes(x = Species, y = `Flipper Length (mm)`, fill = Species)) + 
+  geom_boxplot() +
+  labs(title = "Flipper Length by Species", 
+       x = "Species", 
+       y = "Flipper Length (mm)") +
+  theme_minimal()
+
+# Save the plot
+ggsave(filename = here("Results", "flipper_length_species_boxplot.png"))
+
+# Perform ANOVA
+lm_fit <- lm(`Flipper Length (mm)` ~ Species, data = dat)
+anova_result <- anova(lm_fit)
+print(anova_result)
+
+# Save results
+saveRDS(anova_result, file = here("Results", "flipper_length_species_anova.rds"))
+
+# Check residuals
+residuals <- lm_fit$residuals
+ggplot(data.frame(residuals), aes(x = residuals)) +
+  geom_histogram(binwidth = 2, fill = "pink", color = "black", alpha = 0.7) +
+  labs(title = "Residuals Histogram", x = "Residuals", y = "Frequency") +
+  theme_minimal()
+
+ggsave(filename = here("Results", "residuals_histogram.png"))
+
+# Levene's Test
+leveneTest(`Flipper Length (mm)` ~ Species, data = dat)
+
+message("The ANOVA results indicate whether there is a statistically significant difference in flipper length between species. 
+If the p-value is less than 0.05, it suggests that species differ significantly in their flipper lengths.")
+
+print("Script has run successfully! :)")
 ```
+
+```{r}
+
+# Penguin Analysis Script: Question 2
+
+
+# Linear regression
+lm_fit <- lm(`Body Mass (g)` ~ Sex + Species, data = dat)
+
+# Summary
+summary(lm_fit)
+
+# Boxplot
+ggplot(dat, aes(x = Sex, y = `Body Mass (g)`, fill = Sex)) +
+  geom_boxplot() +
+  labs(title = "Body Mass by Sex", x = "Sex", y = "Body Mass (g)") +
+  theme_minimal()
+
+# Save plot
+ggsave(filename = here("Results", "body_mass_sex_boxplot.png"))
+
+# Save model
+saveRDS(lm_fit, file = here("Results", "body_mass_sex_model.rds"))
+
+# Levene’s test
+levene_test_result <- leveneTest(`Body Mass (g)` ~ Sex * Species, data = dat)
+print(levene_test_result)
+
+message("The regression results indicate whether sex predicts body mass when controlling for species. 
+If the p-value is less than 0.05, it suggests that sex significantly predicts body mass.")
+
+print("Script has run successfully! :)")
+```
+
+```{r}
+
+# Penguin Analysis Script: Question 3
+
+
+# Clean NA values
+dat_clean <- dat %>%
+  filter(!is.na(`Body Mass (g)`) & !is.na(`Flipper Length (mm)`))
+
+# Linear regression
+lm_fit <- lm(`Body Mass (g)` ~ `Flipper Length (mm)`, data = dat_clean)
+
+# Summary
+summary(lm_fit)
+
+# Scatterplot with regression line
+ggplot(dat_clean, aes(x = `Flipper Length (mm)`, y = `Body Mass (g)`)) +
+  geom_point(aes(color = Species), size = 2, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Relationship between Body Mass and Flipper Length",
+       x = "Flipper Length (mm)", y = "Body Mass (g)") +
+  theme_minimal()
+
+# Save plot
+ggsave(filename = here("Results", "body_mass_vs_flipper_length.png"))
+
+# Save model
+saveRDS(lm_fit, file = here("Results", "body_mass_vs_flipper_length_model.rds"))
+
+message("The regression results show the relationship between body mass and flipper length. 
+If the p-value is less than 0.05, it suggests that there is a statistically significant relationship between the two variables.")
+
+print("Script has run successfully! :)")
+
+```
+
+
+
+
+
+
 
 
 
