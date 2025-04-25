@@ -20,7 +20,7 @@ data_path <- "../../Data/Raw_data"
 penguin_raw <- read.csv(data_location, check.names=FALSE)
 
 # Check data
-file_path <- file.path(data_path, "datadictionary.csv", sep="")
+file_path <- paste(data_path, "datadictionary.csv", sep="/")
 dictionary <- read.csv(file_path)
 print(dictionary)
 
