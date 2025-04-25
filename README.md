@@ -52,3 +52,4 @@ For more R packages supporting reproducible research, check out the task view: [
 # Getting Started
 
 As noted earlier, this project is currently in progress. As of **April 1, 2025**, please refer only to the **Code** and **Data** folders for any relevant changes. As of **April 6, 2025**, all files are active, and we are in the later phase of the project analysis, which will help answer questions utilizing our cleaned data and facilitate a valuable discussion surrounding the findings.
+# finalprojectRClass
