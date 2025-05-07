@@ -6,6 +6,16 @@ output: html_document
 ---
 
 # Setup
+
+Load the script that contains the code chunks:
+```{r, cache=FALSE}
+knitr::read_chunk('processingcode.R')
+```
+
+Load packages... 
+```{r, Initial_Setup, message = FALSE, warning = FALSE}
+```
+
 require(dplyr)
 require(tidyr)
 require(skimr)
