@@ -1,5 +1,7 @@
 # Overview
 
+![Palmer Penguin Party](Images/palmerpenguin.png)
+
 This project is part of an R coding class focused on learning how to clean, analyze, and visualize externally provided data. It follows a structured approach using R, Quarto, and GitHub to promote reproducibility and good data science practices.
 
 ![Data science pipeline](https://github.com/mbutler808/rclass/blob/main/images/dspipeline.png)
