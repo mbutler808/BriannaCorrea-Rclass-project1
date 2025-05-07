@@ -6,11 +6,19 @@ output: html_document
 ---
 
 # Setup
-require(dplyr)
-require(tidyr)
-require(skimr)
 
-# Data loading
+To begin with, let's load the necessary libraries required for our data processing and analysis. In this case, we're using `dplyr`, `tidyr`, and `skimr`.
+
+```{r setup}
+library(dplyr)
+library(tidyr)
+library(skimr)
+Data Loading
+We need to load the raw data before any cleaning can take place. The data is located in a specific directory, and we will read it into R using read.csv(). The file we're using here is a CSV file containing raw penguin data.
+
+{r
+Copy
+Edit
 setwd("../../Project-template/Data/Raw_data")
 
 data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
@@ -19,127 +27,109 @@ data_path <- "../../Data/Raw_data"
 # Read the data
 penguin_raw <- read.csv(data_location, check.names=FALSE)
 
-# Check data
-file_path <- file.path(data_path, "datadictionary.csv", sep="")
+# Check data dictionary
+file_path <- file.path(data_path, "datadictionary.csv")
 dictionary <- read.csv(file_path)
 print(dictionary)
+Visualizing the Raw Data
+Before we clean the data, it's a good idea to visualize it to understand its structure and identify any outliers or issues that need attention.
 
-dplyr::glimpse(penguin_raw)
+{r
+Copy
+Edit
+glimpse(penguin_raw)
 summary(penguin_raw)
 head(penguin_raw)
-skimr::skim(penguin_raw)
+skim(penguin_raw)
 
 # Histogram of raw data
-hist(penguin_raw$"Body Mass (g)", main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
+hist(penguin_raw$`Body Mass (g)`, main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
 
-# Bivariate plot for raw data
-plot(penguin_raw$"Body Mass (g)", penguin_raw$"Culmen Length (mm)", main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="green", pch=20)
+# Bivariate plot
+plot(penguin_raw$`Body Mass (g)`, penguin_raw$`Culmen Length (mm)`,
+     main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="green", pch=20)
+Cleaning the Data
+We'll correct misspelled species names using grep().
 
-# Cleaning
-unique(penguin_raw$Species)
-
+{r
+Copy
+Edit
 d1 <- penguin_raw
 
-ii <- grep("PengTin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
+# Correct misspelled species names
+d1$Species[grep("PengTin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species[grep("Pengufn", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species[grep("PeOguin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species[grep("AdeKie", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species[grep("AdelieMPenguin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species[grep("Ventoo", d1$Species)] <- "Gentoo Penguin (Pygoscelis papua)"
 
-# repeat for other misspelled species
-ii <- grep("Pengufn", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-
-ii <- grep("PeOguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-
-ii <- grep("AdeKie", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-
-ii <- grep("AdelieMPenguin", d1$Species)
-d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
-unique(d1$Species)
-
-ii <- grep("Ventoo", d1$Species)
-d1$Species[ii] <- "Gentoo penguin (Pygoscelis papua)"
-unique(d1$Species)
-
+# Normalize capitalization
 d1$Species <- gsub(" penguin", " Penguin", d1$Species)
-unique(d1$Species)
 
-# Species name shortening
+# Shorten species names
 d1$Species <- gsub(" .*", "", d1$Species)
 
-cl <- d1$"Culmen Length (mm)"
-cl[cl == "missing"] <- NA  # find cl==missing and replace "missing" with NA
-cl <- as.numeric(cl)  # coerce to numeric
-d1$"Culmen Length (mm)" <- cl
+unique(d1$Species)
+Handling Missing Data
+We'll replace "missing" with NA in Culmen Length (mm) and convert the column to numeric.
 
-skimr::skim(d1)
-hist(d1$"Culmen Length (mm)")
+{r
+Copy
+Edit
+cl <- d1$`Culmen Length (mm)`
+cl[cl == "missing"] <- NA
+cl <- as.numeric(cl)
+d1$`Culmen Length (mm)` <- cl
 
-plot(d1$"Body Mass (g)", d1$"Culmen Length (mm)")
+# Visualize cleaned column
+skim(d1)
+hist(d1$`Culmen Length (mm)`)
+plot(d1$`Body Mass (g)`, d1$`Culmen Length (mm)`)
+Handling Outliers
+We fix values over 300 (likely incorrect measurements) and remove tiny body masses.
 
+{r
+Copy
+Edit
 d2 <- d1
-cl[cl > 300]
 
-# Excluding NA's
-cl[!is.na(cl) & cl > 300]
+# Adjust high values
+cl <- d2$`Culmen Length (mm)`
+cl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10
+d2$`Culmen Length (mm)` <- cl
 
-cl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10  
-d2$"Culmen Length (mm)" <- cl
+# Visualize
+skim(d2)
+hist(d2$`Culmen Length (mm)`)
+plot(d2$`Body Mass (g)`, d2$`Culmen Length (mm)`)
 
-skimr::skim(d2)
-hist(d2$"Culmen Length (mm)")
-plot(d2$"Body Mass (g)", d2$"Culmen Length (mm)")
-
-hist(d2$"Body Mass (g)")
-
-# Removing "tiny" masses (we only want adult data) and remove any missing data.
+# Remove small body masses
 d3 <- d2
-mm <- d3$"Body Mass (g)"
-mm[mm < 100] <- NA
-nas <- which(is.na(mm))
-d3 <- d3[-nas, ]
+mm <- d3$`Body Mass (g)`
+d3 <- d3[mm >= 100, ]
+Final Checks and Saving the Cleaned Data
+We convert categorical variables to factors and save the cleaned data.
 
-skimr::skim(d3)
-hist(d3$"Body Mass (g)")
-
-plot(d3$"Body Mass (g)", d3$"Culmen Length (mm)")
-
-# After cleaning, check the data again
-hist(d2$"Culmen Length (mm)", main="Histogram of Cleaned Culmen Length (mm)", xlab="Culmen Length (mm)", col="pink", breaks=30)
-
-hist(d3$"Body Mass (g)", main="Histogram of Cleaned Body Mass (g)", xlab="Body Mass (g)", col="purple", breaks=30)
-
-# Summary of cleaned data
-summary(d2$"Culmen Length (mm)")
-summary(d2$"Body Mass (g)")
-skimr::skim(d2)
-
+{r
+Copy
+Edit
+# Convert to factors
 d3$Species <- as.factor(d3$Species)
 d3$Sex <- as.factor(d3$Sex)
-d3$Island <- as.factor(d3$Island)  
-skimr::skim(d3)
+d3$Island <- as.factor(d3$Island)
+
+# Final data overview
+skim(d3)
 
 # Save data
-processeddata <- d3
+saveRDS(d3, file = "../../Data/Processed_data/processeddata.rds")
+write.csv(d3, file = "../../Data/Processed_data/processeddata.csv", row.names = FALSE)
+Notes
+Background of Palmer Penguin Data:
 
-save_data_location <- "../../Data/Processed_data/processeddata.rds"
-saveRDS(processeddata, file = save_data_location)
+The Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment.
 
-save_data_location_csv <- "../../Data/Processed_data/processeddata.csv"
-write.csv(processeddata, file = save_data_location_csv, row.names=FALSE)
+Saving Data as RDS:
 
-
-# Notes
-
-- Background of Palmer Penguin Data:
-
-The Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment. This data is used for both scientific research on penguin populations and as a teaching tool for data analysis techniques.
-
-
--  Saving data as RDS:
-I suggest you save your processed and cleaned data as RDS or RDA/Rdata files.  This preserves coding like factors, characters, numeric, etc.  If you save as CSV, that information would get lost.
-However, CSV is better for sharing with others since it's plain text.
-
+RDS retains R data types (factors, characters, etc.), while CSV is better for sharing but loses these formats.
