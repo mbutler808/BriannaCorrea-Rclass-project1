@@ -6,19 +6,23 @@ output: html_document
 ---
 
 # Setup
+Load packages
+
+```{r}
 require(dplyr)
 require(tidyr)
 require(skimr)
+```
 
 # Data loading
-setwd("../../Project-template/Data/Raw_data")
 
+```{r}
 data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
 data_path <- "../../Data/Raw_data"
 
 # Read the data
 penguin_raw <- read.csv(data_location, check.names=FALSE)
-
+```
 # Check data
 file_path <- paste(data_path, "datadictionary.csv", sep="/")
 dictionary <- read.csv(file_path)
