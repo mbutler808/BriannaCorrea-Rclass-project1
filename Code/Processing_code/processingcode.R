@@ -3,7 +3,7 @@
 # This script will take our raw Palmer's Penguin data, process and clean it 
 # and then save it as an Rds file in the Processed_data folder
 
-## ---- Initial Setup --------
+## ---- Initial_Setup --------
 # Load necessary packages
 library(dplyr)    # Data processing and cleaning
 library(tidyr)    # Data tidying and reshaping
@@ -12,7 +12,7 @@ library(ggplot2)  # Data visualization with ggplot
 library(here)     # Simplified file path management
 
 
-## ---- Data Loading --------
+## ---- Data_Loading --------
 penguin_raw <- read.csv(here("Data", "Raw_data", "penguin_raw_dirty.csv"), check.names = FALSE)
 
 # Check data dictionary
@@ -104,7 +104,7 @@ d1_clean$island <- as.factor(d1_clean$island)
 # Final skim after all cleaning
 skimr::skim(d1_clean)
 
-## ---- bivariate plots --------
+## ---- bivariate_plots --------
 # Bivariate plots of each numeric variable with mass to check for further issues
 
 # Plot Body Mass vs. Culmen Length
