@@ -99,7 +99,7 @@ for (var in numeric_vars) {
 p1 <- ggplot(d1_clean, aes(x = mass)) +
   geom_histogram(aes(fill = species), alpha = 0.5, bins = 30) +
   ggtitle("Mass Histogram by Species")
-ggsave("C:/Users/brnna/classr/BriannaCorrea-Rclass-project1/Data/Processed_data/hist_mass_by_species.png", plot = p1)
+ggsave("../../Data/Processed_data/hist_mass_by_species.png", plot = p1)
 
 p2 <- ggplot(d1_clean, aes(x = mass)) +
   geom_density(aes(fill = species), alpha = 0.5) +
