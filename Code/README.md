@@ -17,7 +17,7 @@ These will all use relative pathways but also determined pathways noted in the m
 ## Documentation for processing_data Script:
 
 * PURPOSE: Cleaning and processing raw data for analysis
-* Input: Raw data file:
+* Input: Raw data file:  WHAT IS THE NAME OF THE FILE?
 * Output: Processed data file:
 
 Aided in removing missing values, standardizing columns, names, filtered outliers. Allowed for the preparation of the dataset for the analysis that addresses questions in regards to the manuscript. 
@@ -26,7 +26,7 @@ Aided in removing missing values, standardizing columns, names, filtered outlier
 
 * PURPOSE: Calculates and summarizes key statistics for the penguin dataset in relation to the questions posed in the manuscript. (See Manuscript.qmd C:\Users\brnna\classr\BriannaCorrea-Rclass-project1\Products\Manuscript)
 * Input:
-- Descripting Stats: .rds
+- Descripting Stats: .rds   AS I MENTIONED THESE ARE FILE ENDINGS, OR TYPES OF FILES. THIS IS NOT HELPFUL UNLESS YOU GIVE THE COMPLETE NAMES OF THE FILES. 
 - Statistical Modeling: .rds
 - Visualization: .rds
 * Output:
@@ -36,11 +36,11 @@ Aided in removing missing values, standardizing columns, names, filtered outlier
 
 ## Order of Execution:
 
-Run Script 1 (Data Processing and Cleaning) first to prepare the data.
+Run FILENAME first to prepare the data.  MAKE IT EASY PLEASE! DONʻT MAKE USERS FIGURE IT OUT
 
-Run Script 2 (Summary Statistics) to calculate descriptive stats and create visual summaries.
+Run FILENAME to calculate descriptive stats and create visual summaries.
 
-Run Script 3 (Model Analysis) to conduct statistical modeling and fit relevant models.
+Run FILENAME to conduct statistical modeling and fit relevant models.
 
-Run Script 4 (Exploratory Visualization) last to generate visualizations based on the clean and analyzed data.
+Run FILENAME last to generate visualizations based on the clean and analyzed data.
 
