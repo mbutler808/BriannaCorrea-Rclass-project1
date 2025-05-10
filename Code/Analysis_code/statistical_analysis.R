@@ -1,32 +1,25 @@
 ###############################
 # Penguin analysis script
-#
-# This script loads the processed, cleaned data, 
-# does a simple analysis and saves the results
-# to the results folder
+# Location: Code/Processing_code
 ###############################
 
-## ---- setup -----
-#load needed packages. make sure they are installed.
-require(ggplot2) #for plotting
-require(magrittr) #for piping
-require(knitr) #for formatting output
+require(ggplot2)
+require(magrittr)
+require(knitr)
 
-#path to data and results 
-data_path <- "../../Data/Processed_data/"
-results_path <- "../../Results/"
+# relative paths from current working dir
+data_path <- "../../../BriannaCorrea-Rclass-project1/Data/Processed_data/"
+results_path <- "../../../BriannaCorrea-Rclass-project1/Results/"
 
-## ---- functions ----
-# function to paste path to output filenames
-
-addpath <- function( filename, path=data_path ) {
-    location <- paste( path, filename, sep="")
-	return( location )
+addpath <- function(filename, path) {
+  file.path(path, filename)
 }
 
-## ---- loaddata ----
-# load data. 
-dat <- readRDS( addpath("penguins.rds", data_path) )
+# File check for safety
+penguin_file <- addpath("penguins.rds", data_path)
+if (!file.exists(penguin_file)) stop("File not found: ", penguin_file)
+
+dat <- readRDS(penguin_file)
 
 
 ## ---- summarize ----

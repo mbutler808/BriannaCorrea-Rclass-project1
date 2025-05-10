@@ -1,135 +1,187 @@
 ---
 title: "Brianna Correa: Cleaning Script"
 author: "Brianna Correa"
-date: "2025-03-05"
-output: html_document
+date: "2023-03-03"
+format: html
 ---
 
-# Setup
+## Processing script (data cleaning)
 
-To begin with, let's load the necessary libraries required for our data processing and analysis. In this case, we're using `dplyr`, `tidyr`, and `skimr`.
+### Setup
 
-```{r setup}
-library(dplyr)
-library(tidyr)
-library(skimr)
-Data Loading
-We need to load the raw data before any cleaning can take place. The data is located in a specific directory, and we will read it into R using read.csv(). The file we're using here is a CSV file containing raw penguin data.
+Load needed packages. Make sure they are installed.
 
-{r
-Copy
-Edit
-setwd("../../Project-template/Data/Raw_data")
+```{r}
+require(dplyr)   # for data processing/cleaning
+require(tidyr)   # for data processing/cleaning
+require(skimr)   # for nice visualization of data 
+```
 
+---
+
+### Data loading
+
+Start R in the same directory that this script resides in: `project_root/Code/Processing_code`.
+If needed, check your working directory with `getwd()`.
+
+**Never** put a `setwd()` inside your code — it's bad etiquette and will likely break for others.
+
+```{r}
+# Path to data using relative paths
 data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
-data_path <- "../../Data/Raw_data"
+data_path <- "../../Data/Raw_data/"
+```
 
-# Read the data
-penguin_raw <- read.csv(data_location, check.names=FALSE)
+---
 
-# Check data dictionary
-file_path <- file.path(data_path, "datadictionary.csv")
-dictionary <- read.csv(file_path)
+### Load data
+
+Use `check.names=FALSE` to preserve original column names (which include spaces/parentheses).
+
+```{r}
+rawdata <- read.csv(data_location, check.names=FALSE)
+```
+
+---
+
+### Check data
+
+Use the data dictionary for context.
+
+```{r}
+dictionary <- read.csv(paste(data_path, "datadictionary.csv", sep=""))
 print(dictionary)
-Visualizing the Raw Data
-Before we clean the data, it's a good idea to visualize it to understand its structure and identify any outliers or issues that need attention.
+```
 
-{r
-Copy
-Edit
-glimpse(penguin_raw)
-summary(penguin_raw)
-head(penguin_raw)
-skim(penguin_raw)
+Basic overviews:
 
-# Histogram of raw data
-hist(penguin_raw$`Body Mass (g)`, main="Histogram of Body Mass (g)", xlab="Body Mass (g)", col="orange", breaks=30)
+```{r}
+dplyr::glimpse(rawdata)
+summary(rawdata)
+head(rawdata)
+skimr::skim(rawdata)
+```
 
-# Bivariate plot
-plot(penguin_raw$`Body Mass (g)`, penguin_raw$`Culmen Length (mm)`,
-     main="Body Mass vs. Culmen Length", xlab="Body Mass (g)", ylab="Culmen Length (mm)", col="green", pch=20)
-Cleaning the Data
-We'll correct misspelled species names using grep().
+---
 
-{r
-Copy
-Edit
-d1 <- penguin_raw
+### Cleaning
 
-# Correct misspelled species names
-d1$Species[grep("PengTin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
-d1$Species[grep("Pengufn", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
-d1$Species[grep("PeOguin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
-d1$Species[grep("AdeKie", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
-d1$Species[grep("AdelieMPenguin", d1$Species)] <- "Adelie Penguin (Pygoscelis adeliae)"
-d1$Species[grep("Ventoo", d1$Species)] <- "Gentoo Penguin (Pygoscelis papua)"
+#### Species names
 
-# Normalize capitalization
-d1$Species <- gsub(" penguin", " Penguin", d1$Species)
+There are 9 unique species — we expect only 3. Let's examine and clean them.
 
-# Shorten species names
-d1$Species <- gsub(" .*", "", d1$Species)
+```{r}
+unique(rawdata$Species)
+d1 <- rawdata
+```
 
+Fix mispellings:
+
+```{r}
+ii <- grep("PengTin", d1$Species)
+d1$Species[ii] <- "Adelie Penguin (Pygoscelis adeliae)"
+d1$Species <- sub("gTin", "guin", d1$Species)
 unique(d1$Species)
-Handling Missing Data
-We'll replace "missing" with NA in Culmen Length (mm) and convert the column to numeric.
+```
 
-{r
-Copy
-Edit
+Shorten species to common names:
+
+```{r}
+d1$Species <- dplyr::case_when(
+  grepl("Adelie", d1$Species) ~ "Adelie",
+  grepl("Chinstrap", d1$Species) ~ "Chinstrap",
+  grepl("Gentoo", d1$Species) ~ "Gentoo",
+  TRUE ~ NA_character_
+)
+```
+
+---
+
+#### Continuous data
+
+Fix `"missing"` in `Culmen Length (mm)` and convert to numeric:
+
+```{r}
 cl <- d1$`Culmen Length (mm)`
 cl[cl == "missing"] <- NA
 cl <- as.numeric(cl)
 d1$`Culmen Length (mm)` <- cl
+```
 
-# Visualize cleaned column
-skim(d1)
+Check data:
+
+```{r}
+skimr::skim(d1)
 hist(d1$`Culmen Length (mm)`)
 plot(d1$`Body Mass (g)`, d1$`Culmen Length (mm)`)
-Handling Outliers
-We fix values over 300 (likely incorrect measurements) and remove tiny body masses.
+```
 
-{r
-Copy
-Edit
+Fix large `Culmen Length (mm)` values (likely off by 10):
+
+```{r}
 d2 <- d1
-
-# Adjust high values
 cl <- d2$`Culmen Length (mm)`
 cl[!is.na(cl) & cl > 300] <- cl[!is.na(cl) & cl > 300] / 10
 d2$`Culmen Length (mm)` <- cl
+```
 
-# Visualize
-skim(d2)
+Re-check:
+
+```{r}
+skimr::skim(d2)
 hist(d2$`Culmen Length (mm)`)
 plot(d2$`Body Mass (g)`, d2$`Culmen Length (mm)`)
+```
 
-# Remove small body masses
+Fix tiny mass values:
+
+```{r}
 d3 <- d2
 mm <- d3$`Body Mass (g)`
-d3 <- d3[mm >= 100, ]
-Final Checks and Saving the Cleaned Data
-We convert categorical variables to factors and save the cleaned data.
+mm[mm < 100] <- NA
+nas <- which(is.na(mm))
+d3 <- d3[-nas, ]
+```
 
-{r
-Copy
-Edit
-# Convert to factors
+Check again:
+
+```{r}
+skimr::skim(d3)
+hist(d3$`Body Mass (g)`)
+plot(d3$`Body Mass (g)`, d3$`Culmen Length (mm)`)
+```
+
+Convert some variables to factors:
+
+```{r}
 d3$Species <- as.factor(d3$Species)
 d3$Sex <- as.factor(d3$Sex)
 d3$Island <- as.factor(d3$Island)
+skimr::skim(d3)
+```
 
-# Final data overview
-skim(d3)
+---
 
-# Save data
-saveRDS(d3, file = "../../Data/Processed_data/processeddata.rds")
-write.csv(d3, file = "../../Data/Processed_data/processeddata.csv", row.names = FALSE)
-Notes
-Background of Palmer Penguin Data:
+### Final data check
 
-The Palmer Penguin Study collects data on three species of penguins (Adélie, Chinstrap, and Gentoo) in Antarctica to understand their physical traits and how they adapt to their environment.
+Make histograms/density plots for continuous data by discrete groups to check for strange categories or value ranges.
 
-Saving Data as RDS:
+---
 
-RDS retains R data types (factors, characters, etc.), while CSV is better for sharing but loses these formats.
+### Save cleaned data
+
+```{r}
+processeddata <- d3
+
+save_data_location <- "../../Data/Processed_data/processeddata.rds"
+saveRDS(processeddata, file = save_data_location)
+
+save_data_location_csv <- "../../Data/Processed_data/processeddata.csv"
+write.csv(processeddata, file = save_data_location_csv, row.names=FALSE)
+```
+
+---
+
+### Notes
+
+* Dealing with NA or "bad" data: removing faulty/missing rows is one approach. You could alternatively keep partially missing individuals depending on your analysis goals.
