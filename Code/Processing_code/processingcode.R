@@ -6,9 +6,9 @@
 ###############################
 
 ## ---- Initial Setup --------
-require(dplyr)   # for data processing/cleaning
-require(tidyr)   # for data processing/cleaning
-require(skimr)   # for visual summaries
+library(dplyr)   # for data processing/cleaning
+library(tidyr)   # for data processing/cleaning
+library(skimr)   # for visual summaries
 library(ggplot2) # for plots
 
 ## ---- Data Loading --------
@@ -99,23 +99,23 @@ for (var in numeric_vars) {
 p1 <- ggplot(d1_clean, aes(x = mass)) +
   geom_histogram(aes(fill = species), alpha = 0.5, bins = 30) +
   ggtitle("Mass Histogram by Species")
-ggsave("../Data/Processed_data/hist_mass_by_species.png", plot = p1)
+ggsave("../../Data/Processed_data/hist_mass_by_species.png", plot = p1)
 
 p2 <- ggplot(d1_clean, aes(x = mass)) +
   geom_density(aes(fill = species), alpha = 0.5) +
   ggtitle("Mass Density by Species")
-ggsave("../Data/Processed_data/density_mass_by_species.png", plot = p2)
+ggsave("../../Data/Processed_data/density_mass_by_species.png", plot = p2)
 
 # By Island
 p3 <- ggplot(d1_clean, aes(x = mass)) +
   geom_histogram(aes(fill = island), alpha = 0.5, bins = 30) +
   ggtitle("Mass Histogram by Island")
-ggsave("../Data/Processed_data/hist_mass_by_island.png", plot = p3)
+ggsave("../../Data/Processed_data/hist_mass_by_island.png", plot = p3)
 
 p4 <- ggplot(d1_clean, aes(x = mass)) +
   geom_density(aes(fill = island), alpha = 0.5) +
   ggtitle("Mass Density by Island")
-ggsave("../Data/Processed_data/density_mass_by_island.png", plot = p4)
+ggsave("../../Data/Processed_data/density_mass_by_island.png", plot = p4)
 
-saveRDS(d1_clean, file = "../Data/Processed_data/clean_penguin_data.rds")
+saveRDS(d1_clean, file = "../../Data/Processed_data/clean_penguin_data.rds")
 
