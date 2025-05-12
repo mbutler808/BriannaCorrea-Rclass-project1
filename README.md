@@ -20,7 +20,7 @@ The Palmer Penguin Project is a dataset used for ecological and statistical anal
 - **2025-04-02**: Finished data cleaning, Project 2 underway.
 - **2025-04-04**: Issues with laptop key stick, Project 2 questions formulated, .qmd edits made, script testing
 - **2025-04-05**: Finalizing script, changing questions
-- **2025-04-06**: Fixed script, approved readme.md and .qmds, Project 2 complete, script run without error after "source()" check. 
+- **2025-05-11**: Fixed script, approved readme.md and .qmds, Project 2 complete, script run without error after "source()" check. 
 
 ### Updates:
 - Code now runs without issues, producing figures required for the project.
@@ -53,4 +53,15 @@ For more R packages supporting reproducible research, check out the task view: [
 
 # Getting Started
 
-As noted earlier, this project is currently in progress. As of **April 1, 2025**, please refer only to the **Code** and **Data** folders for any relevant changes. As of **April 6, 2025**, all files are active, and we are in the later phase of the project analysis, which will help answer questions utilizing our cleaned data and facilitate a valuable discussion surrounding the findings.
+To begin, navigate to the **Code** folder. Inside, you'll find an additional README file that provides more information about the raw files and the cleaning process they undergo.
+
+### Step 1: Processing Script
+To start the cleaning process, open the **processing script** located at: ../../Code/Processing_code/processingcode.R
+
+This script will guide you through the data cleaning process. Once finished, you will have a cleaned dataset ready for analysis. The cleaned data file will be saved as:clean_penguin_data.rds
+
+### Step 2: Follow the Instructions
+Inside the **processingcode.R** script, you'll find another README file that provides detailed instructions on the order in which you should process the various scripts. 
+
+### Step 3: Analyze and Visualize
+After completing the data cleaning, you will be able to generate several figures that provide insights into the three questions the project focuses on.
