@@ -1,0 +1,38 @@
+---
+title: "Brianna Correa: Cleaning Script"
+author: "Brianna Correa"
+date: "2023-03-03"
+format: html
+---
+
+## Processing script (data cleaning)
+
+### Setup
+
+Load needed packages. Make sure they are installed.
+
+```{r}
+require(dplyr)   # for data processing/cleaning
+require(tidyr)   # for data processing/cleaning
+require(skimr)   # for nice visualization of data 
+```
+
+### Data loading
+
+Start R in the same directory that this script resides in: `project_root/Code/Processing_code`.
+If needed, check your working directory with `getwd()`.
+
+**Never** put a `setwd()` inside your code — it's bad etiquette and will likely break for others.
+
+```{r}
+# Path to data using relative paths
+data_location <- "../../Data/Raw_data/penguin_raw_dirty.csv"
+data_path <- "../../Data/Raw_data/"
+```
+### Load data
+
+Use `check.names=FALSE` to preserve original column names (which include spaces/parentheses).
+
+```{r}
+rawdata <- read.csv(data_location, check.names=FALSE)
+```

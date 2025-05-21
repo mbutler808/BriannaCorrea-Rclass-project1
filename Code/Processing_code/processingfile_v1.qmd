@@ -16,8 +16,12 @@ require(dplyr)   # for data processing/cleaning
 require(tidyr)   # for data processing/cleaning
 require(skimr)   # for nice visualization of data 
 ```
-
----
+<!--
+"---" has a special meaning in quarto, notice that it is part of the YAML header. Your quarto will not run properly with these sprinkled throughout the markdown. 
+You must successfully run at the command line to produce the .html version:
+quarto render processingfile_v1.qmd 
+--- 
+-->
 
 ### Data loading
 
@@ -28,11 +32,12 @@ If needed, check your working directory with `getwd()`.
 
 ```{r}
 # Path to data using relative paths
-data_location <- "../../Data/Raw_data/penguins_raw_dirty.csv"
+data_location <- "../../Data/Raw_data/penguin_raw_dirty.csv"
 data_path <- "../../Data/Raw_data/"
 ```
-
+<!--
 ---
+-->
 
 ### Load data
 
@@ -42,7 +47,9 @@ Use `check.names=FALSE` to preserve original column names (which include spaces/
 rawdata <- read.csv(data_location, check.names=FALSE)
 ```
 
+<!--
 ---
+-->
 
 ### Check data
 
@@ -61,8 +68,9 @@ summary(rawdata)
 head(rawdata)
 skimr::skim(rawdata)
 ```
-
+<!--
 ---
+-->
 
 ### Cleaning
 
@@ -94,9 +102,9 @@ d1$Species <- dplyr::case_when(
   TRUE ~ NA_character_
 )
 ```
-
+<!--
 ---
-
+-->
 #### Continuous data
 
 Fix `"missing"` in `Culmen Length (mm)` and convert to numeric:
@@ -159,15 +167,15 @@ d3$Sex <- as.factor(d3$Sex)
 d3$Island <- as.factor(d3$Island)
 skimr::skim(d3)
 ```
-
+<!--
 ---
-
+-->
 ### Final data check
 
 Make histograms/density plots for continuous data by discrete groups to check for strange categories or value ranges.
-
+<!--
 ---
-
+-->
 ### Save cleaned data
 
 ```{r}
@@ -179,9 +187,9 @@ saveRDS(processeddata, file = save_data_location)
 save_data_location_csv <- "../../Data/Processed_data/processeddata.csv"
 write.csv(processeddata, file = save_data_location_csv, row.names=FALSE)
 ```
-
+<!--
 ---
-
+-->
 ### Notes
 
 * Dealing with NA or "bad" data: removing faulty/missing rows is one approach. You could alternatively keep partially missing individuals depending on your analysis goals.
